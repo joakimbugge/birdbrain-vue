@@ -22,13 +22,13 @@ export default defineComponent({
     fixed: Boolean
   },
   setup(props) {
-    const composeStyling = (prefix: string) => () => {
-      const type = `${prefix}--${props.type}`;
+    const composeStyling = (element: string) => () => {
+      const type = `${element}--${props.type}`;
 
       return {
-        [prefix]: true,
+        [element]: true,
         [type]: true,
-        [prefix + "--fixed"]: props.fixed
+        [element + "--fixed"]: props.fixed
       };
     };
 
