@@ -31,6 +31,17 @@ function _defineProperty(obj, key, value) {
   return obj;
 }
 
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+
+var Config = function Config() {
+  _classCallCheck(this, Config);
+};
+Config.ABBR = "birdbrain";
+
 var Type;
 
 (function (Type) {
@@ -99,9 +110,13 @@ var script$1 = defineComponent({
     var styling = computed(function () {
       var _ref;
 
-      var element = "enk-alert";
+      var element = "".concat(Config.ABBR, "-alert");
       var typeModifier = "--".concat(props.type);
-      return _ref = {}, _defineProperty(_ref, element + typeModifier, true), _defineProperty(_ref, element + "--inline", props.inline), _defineProperty(_ref, element + typeModifier + "--outline", props.outline), _defineProperty(_ref, element + typeModifier + "--text", props.text), _ref;
+      return _ref = {}, _defineProperty(_ref, element, true), _defineProperty(_ref, element + typeModifier, true), _defineProperty(_ref, element + "--inline", props.inline), _defineProperty(_ref, element + typeModifier + "--outline", props.outline), _defineProperty(_ref, element + typeModifier + "--text", props.text), _ref;
+    });
+    var iconStyling = computed(function () {
+      var element = "".concat(Config.ABBR, "-alert__icon");
+      return _defineProperty({}, element, true);
     });
     var iconName = computed(function () {
       if (props.icon) {
@@ -124,7 +139,8 @@ var script$1 = defineComponent({
     });
     return {
       iconName: iconName,
-      styling: styling
+      styling: styling,
+      iconStyling: iconStyling
     };
   }
 });
@@ -133,28 +149,15 @@ function render$1(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Icon = resolveComponent("Icon");
 
   return openBlock(), createBlock("div", {
-    class: ["enk-alert", _ctx.styling]
+    class: _ctx.styling
   }, [_ctx.icon !== false ? (openBlock(), createBlock(_component_Icon, {
     key: 0,
     name: _ctx.iconName,
-    class: "enk-alert__icon"
-  }, null, 8, ["name"])) : createCommentVNode("", true), renderSlot(_ctx.$slots, "default")], 2);
+    class: _ctx.iconStyling
+  }, null, 8, ["name", "class"])) : createCommentVNode("", true), renderSlot(_ctx.$slots, "default")], 2);
 }
 
 script$1.render = render$1;
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-}
-
-var Config = function Config() {
-  _classCallCheck(this, Config);
-};
-Config.VERSION = 0.1;
-Config.NAME = "enkelt";
-Config.ABBR = "enk";
 
 var script$2 = defineComponent({
   props: {
@@ -177,9 +180,9 @@ var script$2 = defineComponent({
     var styling = computed(function () {
       var _ref3;
 
-      var prefix = "".concat(Config.ABBR, "-avatar");
-      var type = "".concat(prefix, "--").concat(props.type);
-      return _ref3 = {}, _defineProperty(_ref3, type, true), _defineProperty(_ref3, prefix + "--image", isImage.value), _ref3;
+      var element = "".concat(Config.ABBR, "-avatar");
+      var type = "".concat(element, "--").concat(props.type);
+      return _ref3 = {}, _defineProperty(_ref3, element, true), _defineProperty(_ref3, type, true), _defineProperty(_ref3, element + "--image", isImage.value), _ref3;
     });
     return {
       styling: styling
@@ -189,7 +192,7 @@ var script$2 = defineComponent({
 
 function render$2(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createBlock("div", {
-    class: ["enk-avatar", _ctx.styling]
+    class: _ctx.styling
   }, [renderSlot(_ctx.$slots, "default")], 2);
 }
 
@@ -227,13 +230,18 @@ var script$3 = defineComponent({
     var styling = computed(function () {
       var _ref2;
 
-      var prefix = "".concat(Config.ABBR, "-avatar-group");
-      return _ref2 = {}, _defineProperty(_ref2, prefix, true), _defineProperty(_ref2, prefix + "--grouped", isGrouped.value), _defineProperty(_ref2, prefix + "--narrow", props.narrow), _ref2;
+      var element = "".concat(Config.ABBR, "-avatar-group");
+      return _ref2 = {}, _defineProperty(_ref2, element, true), _defineProperty(_ref2, element + "--grouped", isGrouped.value), _defineProperty(_ref2, element + "--narrow", props.narrow), _ref2;
+    });
+    var avatarStyling = computed(function () {
+      var element = "".concat(Config.ABBR, "-avatar-group__rest");
+      return _defineProperty({}, element, true);
     });
     return {
       avatars: avatars,
       slicedAvatars: slicedAvatars,
-      styling: styling
+      styling: styling,
+      avatarStyling: avatarStyling
     };
   }
 });
@@ -253,13 +261,13 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128)), _ctx.avatars.length > _ctx.max ? (openBlock(), createBlock(_component_Avatar, {
     key: 1,
     type: "dark",
-    class: "enk-avatar-group__rest"
+    class: _ctx.avatarStyling
   }, {
     default: withCtx(function () {
       return [createTextVNode("+" + toDisplayString(_ctx.avatars.length - _ctx.max), 1)];
     }),
     _: 1
-  })) : createCommentVNode("", true)], 2);
+  }, 8, ["class"])) : createCommentVNode("", true)], 2);
 }
 
 script$3.render = render$3;
@@ -316,30 +324,34 @@ var script$4 = defineComponent({
     var styling = computed(function () {
       var _ref;
 
-      var prefix = "".concat(Config.ABBR, "-badge");
-      var type = "".concat(prefix, "--").concat(props.type);
-      var position = "".concat(prefix, "--").concat(props.position);
-      return _ref = {}, _defineProperty(_ref, type, true), _defineProperty(_ref, position, true), _defineProperty(_ref, type + "--pulse", props.pulse), _defineProperty(_ref, prefix + "--dot", props.dot), _defineProperty(_ref, prefix + "--pulse", props.pulse), _ref;
+      var element = "".concat(Config.ABBR, "-badge");
+      var type = "".concat(element, "--").concat(props.type);
+      var position = "".concat(element, "--").concat(props.position);
+      return _ref = {}, _defineProperty(_ref, element, true), _defineProperty(_ref, type, true), _defineProperty(_ref, position, true), _defineProperty(_ref, type + "--pulse", props.pulse), _defineProperty(_ref, element + "--dot", props.dot), _defineProperty(_ref, element + "--pulse", props.pulse), _ref;
+    });
+    var indicatorStyling = computed(function () {
+      var element = "".concat(Config.ABBR, "-badge__indicator");
+      return _defineProperty({}, element, true);
     });
     return {
       isVisible: isVisible,
       parsedValue: parsedValue,
-      styling: styling
+      styling: styling,
+      indicatorStyling: indicatorStyling
     };
   }
 });
 
 var _hoisted_1 = {
-  key: 0,
-  class: "enk-badge__indicator"
-};
-var _hoisted_2 = {
   key: 0
 };
 function render$4(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createBlock("div", {
-    class: ["enk-badge", _ctx.styling]
-  }, [renderSlot(_ctx.$slots, "default"), _ctx.isVisible ? (openBlock(), createBlock("div", _hoisted_1, [!_ctx.dot ? (openBlock(), createBlock("span", _hoisted_2, toDisplayString(_ctx.parsedValue), 1)) : createCommentVNode("", true)])) : createCommentVNode("", true)], 2);
+    class: _ctx.styling
+  }, [renderSlot(_ctx.$slots, "default"), _ctx.isVisible ? (openBlock(), createBlock("div", {
+    key: 0,
+    class: _ctx.indicatorStyling
+  }, [!_ctx.dot ? (openBlock(), createBlock("span", _hoisted_1, toDisplayString(_ctx.parsedValue), 1)) : createCommentVNode("", true)], 2)) : createCommentVNode("", true)], 2);
 }
 
 script$4.render = render$4;
@@ -461,7 +473,8 @@ var script$6 = defineComponent({
     var styling = computed(function () {
       var _ref;
 
-      return _ref = {}, _defineProperty(_ref, "enk-container", true), _defineProperty(_ref, "enk-container--fluid", props.fluid), _defineProperty(_ref, "enk-container--center", props.center), _ref;
+      var element = "".concat(Config.ABBR, "-container");
+      return _ref = {}, _defineProperty(_ref, element, true), _defineProperty(_ref, element + "--fluid", props.fluid), _defineProperty(_ref, element + "--center", props.center), _ref;
     });
     return {
       styling: styling
@@ -477,13 +490,22 @@ function render$6(_ctx, _cache, $props, $setup, $data, $options) {
 
 script$6.render = render$6;
 
-var script$7 = defineComponent({});
+var script$7 = defineComponent({
+  setup: function setup() {
+    var styling = computed(function () {
+      var element = "".concat(Config.ABBR, "-grid");
+      return _defineProperty({}, element, true);
+    });
+    return {
+      styling: styling
+    };
+  }
+});
 
-var _hoisted_1$1 = {
-  class: "enk-grid"
-};
 function render$7(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createBlock("div", _hoisted_1$1, [renderSlot(_ctx.$slots, "default")]);
+  return openBlock(), createBlock("div", {
+    class: _ctx.styling
+  }, [renderSlot(_ctx.$slots, "default")], 2);
 }
 
 script$7.render = render$7;
@@ -562,8 +584,9 @@ var script$8 = defineComponent({
     var styling = computed(function () {
       var _breakpoints, _objectSpread4;
 
+      var element = "".concat(Config.ABBR, "-grid-col");
       var breakpoints = (_breakpoints = {}, _defineProperty(_breakpoints, Breakpoint.Xs, props.xs), _defineProperty(_breakpoints, Breakpoint.Sm, props.sm), _defineProperty(_breakpoints, Breakpoint.Md, props.md), _defineProperty(_breakpoints, Breakpoint.Lg, props.lg), _defineProperty(_breakpoints, Breakpoint.Xl, props.xl), _breakpoints);
-      return _objectSpread2((_objectSpread4 = {}, _defineProperty(_objectSpread4, "".concat(Config.ABBR, "-grid-col--") + props.size, Boolean(props.size)), _defineProperty(_objectSpread4, "".concat(Config.ABBR, "-grid-col--order--") + props.order, Boolean(props.order)), _objectSpread4), getStylingForBreakpoints(breakpoints));
+      return _objectSpread2((_objectSpread4 = {}, _defineProperty(_objectSpread4, element, true), _defineProperty(_objectSpread4, element + "--".concat(props.size), Boolean(props.size)), _defineProperty(_objectSpread4, element + "--order--".concat(props.order), Boolean(props.order)), _objectSpread4), getStylingForBreakpoints(breakpoints));
     });
     return {
       styling: styling
@@ -573,19 +596,28 @@ var script$8 = defineComponent({
 
 function render$8(_ctx, _cache, $props, $setup, $data, $options) {
   return openBlock(), createBlock("div", {
-    class: ["enk-grid-col", _ctx.styling]
+    class: _ctx.styling
   }, [renderSlot(_ctx.$slots, "default")], 2);
 }
 
 script$8.render = render$8;
 
-var script$9 = defineComponent({});
+var script$9 = defineComponent({
+  setup: function setup() {
+    var styling = computed(function () {
+      var element = "".concat(Config.ABBR, "-grid-row");
+      return _defineProperty({}, element, true);
+    });
+    return {
+      styling: styling
+    };
+  }
+});
 
-var _hoisted_1$2 = {
-  class: "enk-grid-row"
-};
 function render$9(_ctx, _cache, $props, $setup, $data, $options) {
-  return openBlock(), createBlock("div", _hoisted_1$2, [renderSlot(_ctx.$slots, "default")]);
+  return openBlock(), createBlock("div", {
+    class: _ctx.styling
+  }, [renderSlot(_ctx.$slots, "default")], 2);
 }
 
 script$9.render = render$9;
