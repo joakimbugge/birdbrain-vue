@@ -6,6 +6,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "vue";
+import { Config } from "../../core/Config";
 
 export default defineComponent({
   props: {
@@ -14,10 +15,12 @@ export default defineComponent({
   },
   setup(props) {
     const styling = computed(() => {
+      const element = `${Config.ABBR}-container`;
+
       return {
-        ["enk-container"]: true,
-        ["enk-container--fluid"]: props.fluid,
-        ["enk-container--center"]: props.center
+        [element]: true,
+        [element + "--fluid"]: props.fluid,
+        [element + "--center"]: props.center
       };
     });
 

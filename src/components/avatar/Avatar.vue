@@ -1,5 +1,5 @@
 <template>
-  <div class="enk-avatar" :class="styling">
+  <div :class="styling">
     <slot></slot>
   </div>
 </template>
@@ -26,12 +26,13 @@ export default defineComponent({
     });
 
     const styling = computed(() => {
-      const prefix = `${Config.ABBR}-avatar`;
-      const type = `${prefix}--${props.type}`;
+      const element = `${Config.ABBR}-avatar`;
+      const type = `${element}--${props.type}`;
 
       return {
+        [element]: true,
         [type]: true,
-        [prefix + "--image"]: isImage.value
+        [element + "--image"]: isImage.value
       };
     });
 
