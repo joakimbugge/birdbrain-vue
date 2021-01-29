@@ -1,3 +1,15 @@
+# [1.1.0-alpha.2](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0-alpha.1...v1.1.0-alpha.2) (2021-01-29)
+
+
+### Bug Fixes
+
+* use Config.ABBR to compose class names ([dbe9603](https://github.com/joakimbugge/birdbrain-vue/commit/dbe960374d0774a3ffb747565cc352f1997e7011))
+
+
+### Features
+
+* change prefix from enk to birdbrain ([4330e77](https://github.com/joakimbugge/birdbrain-vue/commit/4330e77cb28a8228ab261ef73c253cbc22a0bdd8))
+
 # [1.1.0-alpha.1](https://github.com/joakimbugge/birdbrain-vue/compare/v1.0.0...v1.1.0-alpha.1) (2021-01-29)
 
 
