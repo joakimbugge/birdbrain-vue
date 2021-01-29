@@ -1,0 +1,54 @@
+@use "sass:map";
+@use "../../theming/config";
+@use "../../theming/utils/theme";
+
+@mixin -type($name, $palette) {
+  &--#{$name} {
+    background-color: theme.color($palette, light);
+  }
+}
+
+@mixin -indicator-type($name, $palette) {
+  &--#{$name} {
+    background-color: theme.color($palette);
+  }
+}
+
+@mixin use($theme) {
+  .#{config.get(prefix)}-progress-bar {
+    display: block;
+    padding: 0.2em;
+    border-radius: 0.25em;
+    border: 1px solid transparent;
+
+    @each $name, $palette in map.get($theme, palettes) {
+      @include -type($name, $palette);
+    }
+
+    &--fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      margin: 0 !important;
+      padding: 0 !important;
+      background: transparent;
+      border: none;
+    }
+
+    &__indicator {
+      height: 1em;
+      border-radius: 0.25em;
+      transition: all 0.2s linear;
+
+      &--fixed {
+        height: 0.5em;
+        border-radius: 0;
+      }
+
+      @each $name, $palette in map.get($theme, palettes) {
+        @include -indicator-type($name, $palette);
+      }
+    }
+  }
+}

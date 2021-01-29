@@ -1,0 +1,102 @@
+@use "sass:map";
+@use "../../theming/utils/theme";
+@use "../../theming/config";
+
+@mixin -type($name, $palette, $foreground, $background) {
+  &--#{$name} {
+    background-color: theme.color($palette);
+    color: theme.contrast($palette);
+
+    &:hover:not([disabled]) {
+      background-color: theme.color($palette, darker);
+      color: theme.contrast($palette, darker);
+      border-color: transparent;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+      background-color: theme.color($background, disabled);
+      color: theme.contrast($background, disabled);
+    }
+
+    &--outline {
+      background-color: transparent;
+      border-color: theme.color($palette);
+      color: theme.color($palette);
+
+      &:hover:not([disabled]) {
+        background-color: theme.color($palette);
+      }
+
+      &[disabled] {
+        background-color: inherit;
+        border-color: theme.color($background, disabled);
+      }
+    }
+
+    &--text {
+      padding: 1em;
+      background-color: transparent;
+      color: theme.color($palette);
+
+      &:hover:not([disabled]) {
+        background-color: theme.color($palette, 50);
+        color: theme.color($palette);
+      }
+
+      &[disabled] {
+        background-color: transparent;
+        color: theme.color($foreground, disabled);
+      }
+    }
+  }
+}
+
+@mixin use($theme) {
+  $foreground: map.get($theme, foreground);
+  $background: map.get($theme, background);
+  $container: #{config.get(prefix)}-button;
+
+  .#{$container} {
+    margin: 0;
+    padding: 1em 2em;
+    background: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+    vertical-align: middle;
+    border-radius: 50em;
+
+    @each $name, $palette in map.get($theme, palettes) {
+      @include -type($name, $palette, $foreground, $background);
+    }
+
+    &:active {
+      transform: translateY(2px);
+    }
+
+    &--icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &--first {
+        svg {
+          margin-right: 0.75em;
+        }
+      }
+
+      &--last {
+        svg {
+          margin-left: 0.75em;
+        }
+      }
+    }
+
+    &--block {
+      display: block;
+      width: 100%;
+    }
+  }
+}

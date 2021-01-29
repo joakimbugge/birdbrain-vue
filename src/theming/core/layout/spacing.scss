@@ -1,0 +1,128 @@
+////
+//// @group layout/spacing
+////
+@use 'sass:map';
+@use 'sass:meta';
+@use "../../config";
+
+/// Spacing size is multiplied by this number.
+///
+/// @type {Number}
+/// @access private
+$-multiplier: 0.25;
+
+$-sides: (
+  top: top,
+  bottom: bottom,
+  left: left,
+  right: right,
+  x: (
+    left,
+    right
+  ),
+  y: (
+    top,
+    bottom
+  ),
+  all: (
+    top,
+    bottom,
+    left,
+    right
+  )
+);
+$-values: (auto, inherit, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+/// Returns spacing properties for provided type, side and value.
+///
+/// @param {String} $type - margin, padding
+/// @param {String} $side - top, bottom, left, right, all
+/// @param {String|Number} $value - auto, inherit or any number
+///
+/// @access public
+@mixin spacing($type, $side, $value: 4) {
+  $props: map.get($-sides, $side);
+
+  @if not $props {
+    @error 'Invalid argument. Use: #{$-sides}';
+  }
+
+  @each $prop in $props {
+    @if meta.type-of($value) != number {
+      #{$type}-#{$prop}: $value !important;
+    } @else {
+      #{$type}-#{$prop}: #{$value * $-multiplier}rem !important;
+    }
+  }
+}
+
+/// Returns margin for provided side and value.
+///
+/// @param {String} $side - top, bottom, left, right, all
+/// @param {String|Number} $value - auto, inherit og any number
+///
+/// @access public
+@mixin margin($side, $value: 4) {
+  @include spacing(margin, $side, $value);
+}
+
+/// Returns padding properties for provided side and value.
+///
+/// @param {String} $side - top, bottom, left, right, all
+/// @param {String|Number} $value - auto, inherit og any number
+///
+/// @access public
+@mixin padding($side, $value: 4) {
+  @include spacing(padding, $side, $value);
+}
+
+/// Renders spacing styles.
+///
+/// @access public
+@mixin use() {
+  $prefix: config.get(prefix);
+
+  .#{$prefix}-padding {
+    @include padding(all);
+
+    @each $value in $-values {
+      &-#{$value} {
+        @include padding(all, $value);
+      }
+    }
+
+    @each $side in map.keys($-sides) {
+      &-#{$side} {
+        @include padding($side);
+
+        @each $value in $-values {
+          &-#{$value} {
+            @include padding($side, $value);
+          }
+        }
+      }
+    }
+  }
+
+  .#{$prefix}-margin {
+    @include margin(all);
+
+    @each $value in $-values {
+      &-#{$value} {
+        @include margin(all, $value);
+      }
+    }
+
+    @each $side in map.keys($-sides) {
+      &-#{$side} {
+        @include margin($side);
+
+        @each $value in $-values {
+          &-#{$value} {
+            @include margin($side, $value);
+          }
+        }
+      }
+    }
+  }
+}

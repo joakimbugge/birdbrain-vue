@@ -1,0 +1,88 @@
+////
+//// @group layout/responsive
+////
+@use 'sass:map';
+
+/// Default configuration.
+///
+/// @prop {Map} breakpoints
+///
+/// @access private
+$-config: (
+  breakpoints: (
+    xs: 0,
+    sm: 668px,
+    md: 992px,
+    lg: 1312px,
+    xl: 1800px,
+  ),
+) !default;
+
+/// Configure responsiveness.
+///
+/// @param {Map} $config
+///
+/// @access public
+@mixin configure($config) {
+  $-config: map.merge($-config, $config) !global;
+}
+
+/// Get a value from the configuration provided in `configure()`.
+///
+/// @param {String} [$key] - Omit to get the configuration map
+/// @return {Map}
+///
+/// @see {mixin} configure
+/// @access public
+@function get($key: null) {
+  @if not $key {
+    @return $-config;
+  }
+
+  @return map.get($-config, $key);
+}
+
+/// Get a breakpoint provided in `configure()`.
+///
+/// @param {String} [$key] - Omit to get the entire breakpoint map
+/// @return {Map}
+///
+/// @see {mixin} configure
+/// @access public
+@function get-breakpoint($key: null) {
+  $breakpoints: get(breakpoints);
+
+  @if $key {
+    @return map.get($breakpoints, $key);
+  }
+
+  @return $breakpoints;
+}
+
+/// Renders a media query from provided breakpoint and every breakpoint above.
+///
+/// @param {String} $breakpoint
+/// @content
+///
+/// @access public
+@mixin above($breakpoint) {
+  $min-width: get-breakpoint($breakpoint);
+
+  @media (min-width: $min-width) {
+    @content;
+  }
+}
+
+/// Renders a media query from provided breakpoint and every breakpoint below.
+///
+/// @param {String} $breakpoint
+/// @content
+///
+/// @access public
+@mixin below($breakpoint) {
+  $width: get-breakpoint($breakpoint);
+
+  @media (max-width: $width) {
+    @content;
+  }
+}

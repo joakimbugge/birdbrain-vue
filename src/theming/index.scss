@@ -1,0 +1,93 @@
+@use "sass:map";
+@use "config";
+@use "utils/theme";
+@use "core/colors";
+@use "core/typography";
+@use "core/layout";
+@use "core/reset";
+
+@use "../components/alert/Alert";
+//@use "../components/animation/Animation";
+@use "../components/avatar/Avatar";
+@use "../components/avatar/AvatarGroup";
+@use "../components/badge/Badge";
+//@use "../components/box/Box";
+@use "../components/button/Button";
+//@use "../components/button/ButtonGroup";
+//@use "../components/card/Card";
+@use "../components/container/Container";
+@use "../components/grid/Grid";
+@use "../components/icon/Icon";
+//@use "../components/modal/Modal";
+//@use "../components/pill/Pill";
+@use "../components/progress/ProgressBar";
+//@use "../components/table/Table";
+//@use "../components/tooltip/Tooltip";
+
+@forward "utils";
+
+$-theme: theme.create-theme(
+  $primary: theme.create-palette(colors.$purple),
+  $secondary: theme.create-palette(colors.$pink),
+  $success: theme.create-palette(colors.$green),
+  $danger: theme.create-palette(colors.$red),
+  $warning: theme.create-palette(colors.$orange),
+  $info: theme.create-palette(colors.$blue),
+  $light: theme.create-palette(colors.$light),
+  $dark: theme.create-palette(colors.$dark),
+  $foreground: colors.$foreground,
+  $background: colors.$background
+);
+
+@mixin core($theme: $-theme, $config: config.$config) {
+  @include config.set($config);
+  @include layout.use($theme);
+  @include typography.use(
+    $theme,
+    (
+      imports: (
+        "https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap",
+        "https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap"
+      ),
+      font-family: (
+        regular: (
+          Roboto,
+          sans-serif
+        ),
+        monospace: (
+          Roboto Mono,
+          monospace
+        )
+      )
+    )
+  );
+}
+
+@mixin components($theme: $-theme) {
+  @include Alert.use($theme);
+  @include Avatar.use($theme);
+  @include AvatarGroup.use($theme);
+  @include Badge.use($theme);
+  //@include Box.use($theme);
+  @include Button.use($theme);
+  //@include ButtonGroup.use($theme);
+  //@include Card.use($theme);
+  @include Container.use($theme);
+  @include Grid.use($theme);
+  @include Icon.use($theme);
+  //@include Modal.use($theme);
+  //@include Pill.use($theme);
+  @include ProgressBar.use($theme);
+  //@include Tooltip.use($theme);
+  //@include Table.use($theme);
+}
+
+@mixin reset() {
+  @include reset.use();
+}
+
+@mixin all($theme: $-theme, $config: config.$config) {
+  @include reset();
+  @include core($theme, $config);
+  @include components($theme);
+}

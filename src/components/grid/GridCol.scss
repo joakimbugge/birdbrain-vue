@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "../../theming/core/layout";
+@use "../../theming/config";
+
+$selector: #{config.get(prefix)}-grid-col;
+
+@function -flex($width) {
+  @return 0 0 $width;
+}
+
+@mixin use($theme, $config) {
+  $columns: map.get($config, columns);
+  $gutter: map.get($config, gutter);
+
+  .#{$selector} {
+    margin: ($gutter / 2);
+    flex: -flex(calc(100% / #{$columns} - #{$gutter}));
+    overflow: hidden;
+
+    @each $size, $_ in layout.get-breakpoint() {
+      @include layout.above($size) {
+        @for $num from 1 through $columns {
+          $width: (100% / $columns) * $num;
+          $width-adjusted: calc(#{$width} - #{$gutter});
+
+          &--#{$num} {
+            flex: -flex($width-adjusted) !important;
+          }
+
+          &--order--#{$num} {
+            order: $num !important;
+          }
+
+          &--#{$size}--#{$num} {
+            flex: -flex($width-adjusted);
+          }
+
+          &--#{$size}--order--#{$num} {
+            order: $num;
+          }
+        }
+      }
+    }
+  }
+}

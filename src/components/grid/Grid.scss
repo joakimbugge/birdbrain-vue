@@ -1,0 +1,24 @@
+@use "sass:map";
+@use "../../theming/config";
+@use "./GridRow";
+
+$selector: #{config.get(prefix)}-grid;
+$config: (
+  columns: 12,
+  gutter: 1rem,
+) !default;
+
+@mixin configure($user-config) {
+  $config: map.merge($config, $user-config) !global;
+}
+
+@mixin use($theme) {
+  $gutter: map.get($config, gutter);
+
+  .#{$selector} {
+    display: flex;
+    flex-direction: column;
+
+    @include GridRow.use($theme, $config);
+  }
+}

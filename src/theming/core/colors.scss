@@ -1,0 +1,241 @@
+$-lightest: #fbfdfd;
+$-darkest: #263238;
+$-disabled-dark: #8297a1;
+$-disabled-light: #e6eced;
+$-black: #000000;
+$-white: #ffffff;
+$-code: #e83e8c;
+
+$red: (
+  50: #fdebec,
+  100: #fbcdcf,
+  200: #f9abaf,
+  300: #f6898f,
+  400: #f47077,
+  500: #f2575f,
+  600: #f04f57,
+  700: #ee464d,
+  800: #ec3c43,
+  900: #e82c32,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$pink: (
+  50: #fbebf0,
+  100: #f5ccda,
+  200: #eeabc2,
+  300: #e789a9,
+  400: #e26f96,
+  500: #dd5684,
+  600: #d94f7c,
+  700: #d44571,
+  800: #cf3c67,
+  900: #c72b54,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$purple: (
+  50: #f3ebf5,
+  100: #e2cce6,
+  200: #cfabd5,
+  300: #bc89c4,
+  400: #ad6fb8,
+  500: #9f56ab,
+  600: #974fa4,
+  700: #8d459a,
+  800: #833c91,
+  900: #722b80,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$blue: (
+  50: #ecf3f8,
+  100: #d0e0ee,
+  200: #b1cce2,
+  300: #92b8d6,
+  400: #7aa8ce,
+  500: #6399c5,
+  600: #5b91bf,
+  700: #5186b8,
+  800: #477cb0,
+  900: #356ba3,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$green: (
+  50: #edf6ee,
+  100: #d3e9d4,
+  200: #b6dbb7,
+  300: #98cd9a,
+  400: #82c285,
+  500: #6cb76f,
+  600: #64b067,
+  700: #59a75c,
+  800: #4f9f52,
+  900: #3d9040,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$orange: (
+  50: #fef4eb,
+  100: #fce3cd,
+  200: #fad1ab,
+  300: #f7be89,
+  400: #f6b070,
+  500: #f4a257,
+  600: #f39a4f,
+  700: #f19046,
+  800: #ef863c,
+  900: #ec752c,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$dark: (
+  50: #eceff1,
+  100: #cfd8dc,
+  200: #b0bec5,
+  300: #90a4ae,
+  400: #78909c,
+  500: #607d8b,
+  600: #546e7a,
+  700: #455a64,
+  800: #37474f,
+  900: #263238,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-lightest,
+    300: $-lightest,
+    400: $-lightest,
+    500: $-lightest,
+    600: $-lightest,
+    700: $-lightest,
+    800: $-lightest,
+    900: $-lightest
+  )
+);
+
+$light: (
+  50: #fbfdfd,
+  100: #f6f9fa,
+  200: #f0f5f7,
+  300: #eaf1f4,
+  400: #e6eef1,
+  500: #e1ebef,
+  600: #dde9ed,
+  700: #d9e5eb,
+  800: #d5e2e8,
+  900: #cddde4,
+  contrast: (
+    50: $-darkest,
+    100: $-darkest,
+    200: $-darkest,
+    300: $-darkest,
+    400: $-darkest,
+    500: $-darkest,
+    600: $-darkest,
+    700: $-darkest,
+    800: $-darkest,
+    900: $-darkest
+  )
+);
+
+$foreground: (
+  base: $-disabled-dark,
+  disabled: $-disabled-dark,
+  text: $-darkest,
+  black: $-black,
+  white: $-white,
+  code: $-code,
+  contrast: (
+    base: $-disabled-light,
+    disabled: $-disabled-light,
+    text: $-lightest,
+    black: $-white,
+    white: $-black,
+    code: $-white
+  )
+);
+
+$background: (
+  base: $-disabled-light,
+  disabled: $-disabled-light,
+  black: $-black,
+  white: $-white,
+  shadow: $-black,
+  background: $-white,
+  contrast: (
+    base: $-disabled-dark,
+    disabled: $-disabled-dark,
+    black: $-white,
+    white: $-black,
+    shadow: $-white,
+    background: $-darkest
+  )
+);

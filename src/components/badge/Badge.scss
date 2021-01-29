@@ -1,0 +1,107 @@
+@use "sass:map";
+@use "../../theming/utils/theme";
+@use "../../theming/config";
+@use "../../theming/core/typography";
+
+$badge-container: #{config.get(prefix)}-badge;
+$badge-indicator: #{$badge-container}__indicator;
+
+@mixin -indicator {
+  .#{$badge-indicator} {
+    @content;
+  }
+}
+
+@mixin -type($name, $palette) {
+  &--#{$name} {
+    @include -indicator {
+      background-color: theme.color($palette);
+      color: theme.contrast($palette);
+    }
+
+    &--pulse {
+      @include -indicator {
+        animation: badge-pulse-#{$name} 1.5s infinite;
+      }
+    }
+  }
+
+  @keyframes badge-pulse-#{$name} {
+    0% {
+      box-shadow: 0 0 0 0 rgba(theme.color($palette), 0.7);
+    }
+
+    70% {
+      box-shadow: 0 0 0 0.75em rgba(theme.color($palette), 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(theme.color($palette), 0);
+    }
+  }
+}
+
+@mixin use($theme) {
+  .#{$badge-container} {
+    display: inline-block;
+    position: relative;
+
+    @include -indicator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: -0.5em;
+      right: -0.5em;
+      font-size: 0.75em;
+      padding: 0 0.75em;
+      height: 1.5rem;
+      border-radius: 10em;
+      pointer-events: none;
+      z-index: 9;
+    }
+
+    &--pulse {
+      @include -indicator {
+        animation: pulse-black 2s infinite;
+      }
+    }
+
+    &--dot {
+      @include -indicator {
+        height: 1em;
+        width: 1em;
+        margin: 0.25em;
+        padding: 0;
+      }
+    }
+
+    &--top-left {
+      @include -indicator {
+        top: -0.5em;
+        left: -0.5em;
+        right: auto;
+      }
+    }
+
+    &--bottom-right {
+      @include -indicator {
+        bottom: -0.5em;
+        top: auto;
+      }
+    }
+
+    &--bottom-left {
+      @include -indicator {
+        bottom: -0.5em;
+        left: -0.5em;
+        top: auto;
+        right: auto;
+      }
+    }
+
+    @each $name, $palette in map.get($theme, palettes) {
+      @include -type($name, $palette);
+    }
+  }
+}

@@ -1,0 +1,13 @@
+@use "sass:map";
+
+$config: (
+  prefix: "enk"
+) !default;
+
+@mixin set($c: $config) {
+  $config: map.merge($config, $c) !global;
+}
+
+@function get($key) {
+  @return map.get($config, $key);
+}
