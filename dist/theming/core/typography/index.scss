@@ -1,0 +1,194 @@
+@use "sass:map";
+@use '../../utils/theme';
+@use '../layout';
+
+$-config: (
+  prefix: "",
+  imports: (),
+  font-family: (
+    regular: (
+      Arial,
+      sans-serif
+    ),
+    monospace: (
+      monospace,
+      monospace
+    )
+  ),
+  font-size: 16px,
+  line-height: 1.5,
+  heading-1: 2em,
+  heading-2: 1.75em,
+  heading-3: 1.5em,
+  heading-4: 1.25em,
+  heading-5: 1em
+) !default;
+
+@function get($key) {
+  @return map.get($-config, $key);
+}
+
+@function font-family($key: regular) {
+  @return map.get(get(font-family), $key);
+}
+
+@mixin configure($config) {
+  $-config: map.merge($-config, $config) !global;
+}
+
+@mixin use($theme, $config: $-config) {
+  @include configure($config);
+
+  $warning: theme.palette($theme, warning);
+  $light: theme.palette($theme, light);
+  $dark: theme.palette($theme, dark);
+  $danger: theme.palette($theme, danger);
+  $success: theme.palette($theme, success);
+  $foreground: theme.palette($theme, foreground);
+
+
+  @each $import in get(imports) {
+    @import url($import);
+  }
+
+  html {
+    font-size: get(font-size);
+  }
+
+  body,
+  button,
+  input,
+  textarea {
+    //noinspection CssNoGenericFontName
+    font-family: font-family();
+    font-size: get(font-size);
+    font-weight: 300;
+    color: theme.color($foreground, text);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0 1rem 0;
+    padding: 0;
+
+    &:only-child {
+      margin: 0;
+    }
+  }
+
+  h1 {
+    font-size: get(heading-1);
+    font-weight: 300;
+  }
+
+  h2 {
+    font-size: get(heading-2);
+    font-weight: 300;
+  }
+
+  h3 {
+    font-size: get(heading-3);
+    font-weight: 300;
+  }
+
+  h4 {
+    font-size: get(heading-4);
+    font-weight: 300;
+  }
+
+  h5 {
+    font-size: get(heading-5);
+    font-weight: 400;
+  }
+
+  p {
+    margin: 0 0 1em 0;
+    padding: 0;
+    line-height: get(line-height);
+
+    &:last-child {
+      margin: 0;
+    }
+  }
+
+  strong,
+  b {
+    font-weight: 700;
+  }
+
+  em,
+  i {
+    font-style: italic;
+  }
+
+  mark {
+    background-color: theme.color($dark);
+    color: theme.contrast($dark);
+    padding: 0.15em 0.35em;
+    border-radius: layout.get(border-radius);
+  }
+
+  s {
+    text-decoration: line-through;
+  }
+
+  u {
+    text-decoration: underline;
+  }
+
+  small {
+    font-size: 0.8em;
+  }
+
+  code {
+    font-family: font-family(monospace);
+    font-weight: 400;
+    color: theme.color($foreground, code);
+  }
+
+  del,
+  ins {
+    position: relative;
+    display: inline;
+    text-decoration: none;
+    padding: 0.15em 0.35em 0.15em 1.5em;
+    border-radius: layout.get(border-radius);
+
+    &:before {
+      position: absolute;
+      left: 0.35em;
+    }
+  }
+
+  del {
+    background-color: theme.color($danger);
+    color: theme.contrast($danger);
+
+    &:before {
+      content: "\2013";
+    }
+  }
+
+  ins {
+    background-color: theme.color($success);
+    color: theme.contrast($success);
+
+    &:before {
+      content: "+";
+    }
+  }
+
+  kbd {
+    background-color: theme.color($light);
+    color: theme.contrast($light);
+    font-family: font-family(monospace);
+    font-weight: 400;
+    font-size: 0.95em;
+    padding: 0.1em 0.25em;
+    border-radius: layout.get(border-radius);
+  }
+}

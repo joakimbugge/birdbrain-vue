@@ -1,0 +1,65 @@
+////
+//// @group layout/elevate
+////
+@use "sass:math";
+@use "../../utils/theme";
+@use "../../config";
+
+/// Adds shadow for every positive value and inset shadow for every negative value.
+/// Set `$level` to 0 to remove a shadow.
+/// Use `$invert` to switch between dark and light palette on the shadow.
+///
+/// @param {Theme} $theme
+/// @param {Number} $level - Level of elevation
+/// @param {Boolean} $invert [false] - Switches palette
+///
+/// @access public
+@mixin elevate($theme, $level, $invert: false) {
+  $opacity: 0.4;
+  $spread-radius: -15px;
+  $blur-radius: 12px * math.abs($level);
+
+  $background: theme.palette($theme, background);
+  $color: rgba(theme.color($background, shadow), $opacity);
+
+  @if $invert {
+    $color: rgba(theme.contrast($background, shadow), $opacity);
+  }
+
+  @if $level == 1 {
+    $spread-radius: -10px;
+  }
+
+  @if ($level < 0) {
+    box-shadow: inset 0 0 $blur-radius $color;
+  } @else if ($level > 0) {
+    box-shadow: 0 0 $blur-radius $spread-radius $color;
+  } @else {
+    box-shadow: none;
+  }
+}
+
+/// Loops over every elevation level.
+///
+/// @access public
+/// @content
+@mixin for-elevates() {
+  @for $level from -6 through 6 {
+    @content ($level);
+  }
+}
+
+/// Renders elevation classes.
+///
+/// @param {Theme} $theme
+///
+/// @access public
+@mixin use($theme) {
+  $prefix: config.get(prefix);
+
+  @include for-elevates() using ($level) {
+    .#{$prefix}-elevate-#{$level} {
+      @include elevate($theme, $level);
+    }
+  }
+}

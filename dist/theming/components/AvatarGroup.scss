@@ -1,0 +1,39 @@
+@use "../config";
+@use "./Avatar";
+
+$selector: #{config.get(prefix)}-avatar-group;
+
+@mixin use($theme) {
+  .#{$selector} {
+    position: relative;
+    z-index: auto;
+    display: inline-flex;
+    align-items: center;
+    margin-left: 0.5em; // Reset margin-left on the first avatar
+    vertical-align: middle;
+
+    .#{Avatar.$selector} {
+      margin-right: 0.75em; // Revert the negative margin
+      margin-left: -0.5em;
+    }
+
+    &--narrow {
+      margin-left: 1em;
+
+      .#{Avatar.$selector} {
+        margin-left: -1em;
+      }
+    }
+
+    &--grouped {
+      .#{Avatar.$selector} {
+        border-width: 2px;
+        margin-right: 0;
+      }
+    }
+
+    &__rest {
+      //z-index: 99;
+    }
+  }
+}

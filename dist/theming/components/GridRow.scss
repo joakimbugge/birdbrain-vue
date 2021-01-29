@@ -1,0 +1,29 @@
+@use "sass:map";
+@use "../config";
+@use "./GridCol";
+
+$selector: #{config.get(prefix)}-grid-row;
+
+@mixin use($theme, $config) {
+  $gutter: map.get($config, gutter);
+  $reset-gutter: (-$gutter / 2);
+
+  .#{$selector} {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    margin-left: $reset-gutter;
+    margin-right: $reset-gutter;
+
+    &:first-child {
+      margin-top: $reset-gutter;
+    }
+
+    &:last-child {
+      margin-bottom: $reset-gutter;
+    }
+
+    @include GridCol.use($theme, $config);
+  }
+}

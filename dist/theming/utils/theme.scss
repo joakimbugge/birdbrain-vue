@@ -1,0 +1,85 @@
+@use "sass:map";
+@use "sass:list";
+@use "sass:math";
+@use "../core/colors";
+
+@function create-theme(
+  $primary,
+  $secondary,
+  $success,
+  $danger,
+  $warning,
+  $info,
+  $light,
+  $dark,
+  $foreground,
+  $background
+) {
+  @return (
+    palettes: (
+      primary: $primary,
+      secondary: $secondary,
+      success: $success,
+      danger: $danger,
+      warning: $warning,
+      info: $info,
+      light: $light,
+      dark: $dark
+    ),
+    foreground: $foreground,
+    background: $background
+  );
+}
+
+@function create-palette($palette, $default: 500) {
+  $light: math.max($default - 400, 50);
+  $lighter: $default - 200;
+  $darker: $default + 200;
+  $dark: math.min($default + 400, 900);
+
+  $contrast: map.get($palette, contrast);
+
+  @return map.merge(
+    $palette,
+    (
+      default: map.get($palette, $default),
+      light: map.get($palette, $light),
+      lighter: map.get($palette, $lighter),
+      darker: map.get($palette, $darker),
+      dark: map.get($palette, $dark),
+      contrast:
+        map-merge(
+          $contrast,
+          (
+            default: contrast($palette, $default),
+            light: contrast($palette, $light),
+            lighter: contrast($palette, $lighter),
+            darker: contrast($palette, $darker),
+            dark: contrast($palette, $dark)
+          )
+        )
+    )
+  );
+}
+
+@function color($palette, $hue: default) {
+  @return map.get($palette, $hue);
+}
+
+@function contrast($palette, $hue: default) {
+  @return map.get(map.get($palette, contrast), $hue);
+}
+
+@function palette($theme, $name) {
+  @if (list.index((background, foreground), $name)) {
+    @return map.get($theme, $name);
+  }
+
+  @return map.get(map.get($theme, palettes), $name);
+}
+
+@mixin for-palettes($theme) {
+  @each $name, $palette in map.get($theme, palettes) {
+    @content ($name, $palette);
+  }
+}

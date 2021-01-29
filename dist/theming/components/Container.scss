@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "sass:list";
+@use "../config";
+@use "../core/layout";
+
+$-config: (
+  xs: 100%,
+  sm: 100%,
+  md: 100%,
+  lg: 1200px
+) !default;
+
+@mixin configure($user-config) {
+  $-config: map.merge($-config, $user-config) !global;
+}
+
+@mixin use($theme, $config: $-config) {
+  @include configure($config);
+
+  .#{config.get(prefix)}-container {
+    &--fluid {
+      max-width: 100% !important;
+    }
+
+    &--center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    $breakpoints: layout.get-breakpoint();
+    $sizes: map.keys($breakpoints);
+
+    @each $size, $_ in $breakpoints {
+      @if list.index(map.keys($-config), $size) {
+        $width: map.get($-config, $size);
+        //$index: list.index($sizes, $size);
+
+        @include layout.above($size) {
+          max-width: $width;
+
+          //@if ($index > 1) {
+          //  $prev-size: list.nth($sizes, $index - 1);
+          //  $prev-width: map.get($-config, $prev-size);
+          //  min-width: $prev-width;
+          //}
+        }
+      }
+    }
+  }
+}

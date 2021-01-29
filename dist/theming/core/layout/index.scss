@@ -1,0 +1,78 @@
+////
+//// @group layout
+////
+@use "sass:map";
+@use "../../utils/theme";
+@use './elevate';
+@use './spacing';
+@use './responsive';
+
+@forward "./elevate" hide use;
+@forward "./spacing" hide use;
+@forward './responsive' hide configure, get;
+
+/// Default configuration.
+///
+/// @prop {Number} border-radius [0.25em]
+/// @prop {Map} breakpoints
+///
+/// @type {Map}
+/// @access private
+/// @see layout/responsive.$-config
+$-config: map.merge(
+  (
+    border-radius: 0.25em
+  ),
+  responsive.get()
+) !default;
+
+/// Get a value from the configuration provided in `configure()`.
+///
+/// @param {String} [$key] - Omit to get the entire configuration map
+/// @return {Map}
+///
+/// @access public
+/// @see {mixin} configure
+/// @see $-config
+@function get($key) {
+  @if not $key {
+    @return $-config;
+  }
+
+  @return map.get($-config, $key);
+}
+
+/// Configure the core layout.
+///
+/// @param {Map} $config
+///
+/// @access public
+@mixin configure($config) {
+  @include responsive.configure($config);
+  $-config: map.merge(map.merge($-config, responsive.get()), $config) !global;
+}
+
+/// Renders core layout styling.
+///
+/// @param {Theme} $theme
+///
+/// @access public
+@mixin use($theme, $config: $-config) {
+  @include configure($config);
+
+  $background: theme.palette($theme, background);
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background-color: theme.color($background, background);
+  }
+
+  @include elevate.use($theme);
+  @include spacing.use();
+}

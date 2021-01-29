@@ -1,0 +1,50 @@
+@use "sass:map";
+@use "../config";
+@use "../utils/theme";
+@use "../core/layout";
+@use "../core/typography";
+
+$selector: #{config.get(prefix)}-alert;
+
+@mixin -type($name, $palette) {
+  &--#{$name} {
+    background-color: theme.color($palette, 50);
+    color: theme.color($palette, 900);
+
+    &--outline {
+      background-color: transparent;
+      border-color: theme.color($palette);
+      color: theme.color($palette);
+    }
+
+    &--text {
+      background: transparent;
+      border-color: transparent;
+      color: theme.color($palette);
+      padding: 0.5em 0;
+    }
+  }
+}
+
+@mixin use($theme) {
+  .#{$selector} {
+    display: flex;
+    padding: 1em 1.5em;
+    border: 1px solid transparent;
+    border-radius: 50em;
+    line-height: typography.get(line-height);
+
+    @each $name, $palette in map.get($theme, palettes) {
+      @include -type($name, $palette);
+    }
+
+    &__icon {
+      font-size: 1.5em;
+      margin-right: 0.75em;
+    }
+
+    &--inline {
+      display: inline-flex;
+    }
+  }
+}
