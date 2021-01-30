@@ -7,22 +7,15 @@
 @use "core/reset";
 
 @use "../components/alert/Alert";
-//@use "../components/animation/Animation";
 @use "../components/avatar/Avatar";
 @use "../components/avatar/AvatarGroup";
 @use "../components/badge/Badge";
-//@use "../components/box/Box";
 @use "../components/button/Button";
-//@use "../components/button/ButtonGroup";
-//@use "../components/card/Card";
 @use "../components/container/Container";
 @use "../components/grid/Grid";
 @use "../components/icon/Icon";
-//@use "../components/modal/Modal";
-//@use "../components/pill/Pill";
 @use "../components/progress/ProgressBar";
-//@use "../components/table/Table";
-//@use "../components/tooltip/Tooltip";
+@use "../components/tooltip/Tooltip";
 
 @forward "utils";
 
@@ -68,18 +61,12 @@ $-theme: theme.create-theme(
   @include Avatar.use($theme);
   @include AvatarGroup.use($theme);
   @include Badge.use($theme);
-  //@include Box.use($theme);
   @include Button.use($theme);
-  //@include ButtonGroup.use($theme);
-  //@include Card.use($theme);
   @include Container.use($theme);
   @include Grid.use($theme);
   @include Icon.use($theme);
-  //@include Modal.use($theme);
-  //@include Pill.use($theme);
   @include ProgressBar.use($theme);
-  //@include Tooltip.use($theme);
-  //@include Table.use($theme);
+  @include Tooltip.use($theme);
 }
 
 @mixin reset() {
