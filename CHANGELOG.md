@@ -1,3 +1,11 @@
+# [1.1.0-alpha.4](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0-alpha.3...v1.1.0-alpha.4) (2021-01-30)
+
+
+### Bug Fixes
+
+* **theming:** components now always get correct prefix ([8146ed1](https://github.com/joakimbugge/birdbrain-vue/commit/8146ed17df4e36f2fc6b3a770e0a8ac267b99c6a))
+* **theming:** remove test prefix ([37e8c42](https://github.com/joakimbugge/birdbrain-vue/commit/37e8c4227eda18bc3e6c0171af7f623ed9faaea7))
+
 # [1.1.0-alpha.3](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0-alpha.2...v1.1.0-alpha.3) (2021-01-30)
 
 

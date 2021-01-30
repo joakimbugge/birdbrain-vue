@@ -3,24 +3,21 @@
 @use "../config";
 @use "../core/typography";
 
-$badge-container: #{config.get(prefix)}-badge;
-$badge-indicator: #{$badge-container}__indicator;
-
-@mixin -indicator {
-  .#{$badge-indicator} {
+@mixin -indicator($indicator-selector) {
+  .#{$indicator-selector} {
     @content;
   }
 }
 
-@mixin -type($name, $palette) {
+@mixin -type($name, $palette, $indicator-selector) {
   &--#{$name} {
-    @include -indicator {
+    @include -indicator($indicator-selector) {
       background-color: theme.color($palette);
       color: theme.contrast($palette);
     }
 
     &--pulse {
-      @include -indicator {
+      @include -indicator($indicator-selector) {
         animation: badge-pulse-#{$name} 1.5s infinite;
       }
     }
@@ -42,11 +39,14 @@ $badge-indicator: #{$badge-container}__indicator;
 }
 
 @mixin use($theme) {
-  .#{$badge-container} {
+  $selector: #{config.get(prefix)}-badge;
+  $indicator-selector: #{$selector}__indicator;
+
+  .#{$selector} {
     display: inline-block;
     position: relative;
 
-    @include -indicator {
+    @include -indicator($indicator-selector) {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -62,13 +62,13 @@ $badge-indicator: #{$badge-container}__indicator;
     }
 
     &--pulse {
-      @include -indicator {
+      @include -indicator($indicator-selector) {
         animation: pulse-black 2s infinite;
       }
     }
 
     &--dot {
-      @include -indicator {
+      @include -indicator($indicator-selector) {
         height: 1em;
         width: 1em;
         margin: 0.25em;
@@ -77,7 +77,7 @@ $badge-indicator: #{$badge-container}__indicator;
     }
 
     &--top-left {
-      @include -indicator {
+      @include -indicator($indicator-selector) {
         top: -0.5em;
         left: -0.5em;
         right: auto;
@@ -85,14 +85,14 @@ $badge-indicator: #{$badge-container}__indicator;
     }
 
     &--bottom-right {
-      @include -indicator {
+      @include -indicator($indicator-selector) {
         bottom: -0.5em;
         top: auto;
       }
     }
 
     &--bottom-left {
-      @include -indicator {
+      @include -indicator($indicator-selector) {
         bottom: -0.5em;
         left: -0.5em;
         top: auto;
@@ -101,7 +101,7 @@ $badge-indicator: #{$badge-container}__indicator;
     }
 
     @each $name, $palette in map.get($theme, palettes) {
-      @include -type($name, $palette);
+      @include -type($name, $palette, $indicator-selector);
     }
   }
 }

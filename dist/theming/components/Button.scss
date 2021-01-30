@@ -55,9 +55,9 @@
 @mixin use($theme) {
   $foreground: map.get($theme, foreground);
   $background: map.get($theme, background);
-  $container: #{config.get(prefix)}-button;
+  $selector: #{config.get(prefix)}-button;
 
-  .#{$container} {
+  .#{$selector} {
     margin: 0;
     padding: 1em 2em;
     background: none;

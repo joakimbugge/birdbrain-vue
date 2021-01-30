@@ -4,10 +4,6 @@
 @use "../core/typography";
 @use "../config";
 
-$selector: #{config.get(prefix)}-tooltip;
-$tooltip-selector: #{$selector}__tooltip;
-$tooltip-arrow-selector: #{$tooltip-selector}__arrow;
-
 $-arrow-size: 1.1em;
 $-arrow-positions: (
   top: (
@@ -36,7 +32,7 @@ $-config: (
   @return '[data-popper-placement="#{$position}"]';
 }
 
-@mixin -type($name, $palette) {
+@mixin -type($name, $palette, $tooltip-arrow-selector) {
   $hue: 900;
   $background: theme.color($palette, $hue);
 
@@ -51,6 +47,10 @@ $-config: (
 }
 
 @mixin use($theme) {
+  $selector: #{config.get(prefix)}-tooltip;
+  $tooltip-selector: #{$selector}__tooltip;
+  $tooltip-arrow-selector: #{$tooltip-selector}__arrow;
+
   $arrow-size: map.get($-config, arrow-size);
 
   .#{$selector} {
@@ -67,7 +67,7 @@ $-config: (
       transition: transform 200ms, opacity 200ms;
 
       @each $name, $palette in map.get($theme, palettes) {
-        @include -type($name, $palette);
+        @include -type($name, $palette, $tooltip-arrow-selector);
       }
 
       p {

@@ -15,7 +15,9 @@
 }
 
 @mixin use($theme) {
-  .#{config.get(prefix)}-progress-bar {
+  $selector: config.get(prefix);
+
+  .#{$selector}-progress-bar {
     display: block;
     padding: 0.2em;
     border-radius: 0.25em;

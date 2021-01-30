@@ -4,8 +4,6 @@
 @use "../core/layout";
 @use "../core/typography";
 
-$selector: #{config.get(prefix)}-alert;
-
 @mixin -type($name, $palette) {
   &--#{$name} {
     background-color: theme.color($palette, 50);
@@ -27,6 +25,8 @@ $selector: #{config.get(prefix)}-alert;
 }
 
 @mixin use($theme) {
+  $selector: #{config.get(prefix)}-alert;
+
   .#{$selector} {
     display: flex;
     padding: 1em 1.5em;
