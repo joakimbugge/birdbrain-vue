@@ -2,9 +2,9 @@
 @use "../../theming/config";
 @use "./GridCol";
 
-$selector: #{config.get(prefix)}-grid-row;
 
 @mixin use($theme, $config) {
+  $selector: #{config.get(prefix)}-grid-row;
   $gutter: map.get($config, gutter);
   $reset-gutter: (-$gutter / 2);
 
