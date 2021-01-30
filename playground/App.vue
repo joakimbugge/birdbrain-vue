@@ -1,4 +1,24 @@
 <template>
+  <div class="spacing" style="text-align: center">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <Tooltip
+      content="Tooltip with a lot of content and some more should break into multiple lines"
+      :position="tooltipPosition"
+    >
+      <Button @click="toggleTooltipPosition">Tooltip</Button>
+    </Tooltip>
+  </div>
+
   <div class="spacing spacing--block">
     <ProgressBar :progress="progress" @click="randomProgress" />
     <ProgressBar :progress="progress" type="secondary" fixed />
@@ -74,7 +94,10 @@
   <div class="spacing">
     <h2>Avatars</h2>
 
-    <Avatar>JB</Avatar>
+    <Tooltip content="Test">
+      <template #content>Other content</template>
+      <Avatar>JB</Avatar>
+    </Tooltip>
     <Avatar><img src="https://picsum.photos/200"/></Avatar>
   </div>
 
@@ -239,10 +262,12 @@ import GridCol from "../src/components/grid/GridCol.vue";
 import GridRow from "../src/components/grid/GridRow.vue";
 import Icon, { icons } from "../src/components/icon/Icon.vue";
 import ProgressBar from "../src/components/progress/ProgressBar.vue";
+import Tooltip from "../src/components/tooltip/Tooltip.vue";
 
 export default defineComponent({
   name: "App",
   components: {
+    Tooltip,
     ProgressBar,
     AvatarGroup,
     Avatar,
@@ -259,6 +284,7 @@ export default defineComponent({
     const loading = ref(false);
     const type = ref("primary");
     const progress = ref(40);
+    const tooltipPosition = ref("left");
 
     const toggleLoading = () => {
       loading.value = !loading.value;
@@ -272,13 +298,19 @@ export default defineComponent({
       progress.value = random(0, 100);
     };
 
+    const toggleTooltipPosition = () => {
+      tooltipPosition.value = tooltipPosition.value === "left" ? "right" : "left";
+    };
+
     return {
       toggleLoading,
       toggleType,
+      toggleTooltipPosition,
       randomProgress,
       progress,
       loading,
       type,
+      tooltipPosition,
       icons
     };
   }
