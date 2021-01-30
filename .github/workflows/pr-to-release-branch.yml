@@ -1,4 +1,4 @@
-name: PR to main
+name: PR to release branch
 on:
   pull_request:
     branches:
