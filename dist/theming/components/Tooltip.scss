@@ -1,0 +1,119 @@
+@use "sass:map";
+@use "../utils/theme";
+@use "../core/layout";
+@use "../core/typography";
+@use "../config";
+
+$selector: #{config.get(prefix)}-tooltip;
+$tooltip-selector: #{$selector}__tooltip;
+$tooltip-arrow-selector: #{$tooltip-selector}__arrow;
+
+$-arrow-size: 1.1em;
+$-arrow-positions: (
+  top: (
+    opposite-position: bottom,
+    transform: translateY(0.5em)
+  ),
+  bottom: (
+    opposite-position: top,
+    transform: translateY(-0.5em)
+  ),
+  left: (
+    opposite-position: right,
+    transform: translateX(0.5em)
+  ),
+  right: (
+    opposite-position: left,
+    transform: translateX(-0.5em)
+  )
+);
+
+$-config: (
+  arrow-size: 0.5em
+);
+
+@function -arrow-position-selector($position) {
+  @return '[data-popper-placement="#{$position}"]';
+}
+
+@mixin -type($name, $palette) {
+  $hue: 900;
+  $background: theme.color($palette, $hue);
+
+  &--#{$name} {
+    background-color: $background;
+    color: theme.contrast($palette, $hue);
+
+    .#{$tooltip-arrow-selector}:before {
+      background-color: $background;
+    }
+  }
+}
+
+@mixin use($theme) {
+  $arrow-size: map.get($-config, arrow-size);
+
+  .#{$selector} {
+    display: inline;
+
+    .#{$tooltip-selector} {
+      position: relative;
+      padding: 0.75em;
+      border-radius: layout.get(border-radius);
+      max-width: 20em;
+      font-size: 1rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 200ms, opacity 200ms;
+
+      @each $name, $palette in map.get($theme, palettes) {
+        @include -type($name, $palette);
+      }
+
+      p {
+        line-height: typography.get(line-height) * 0.85;
+      }
+
+      .#{$tooltip-arrow-selector} {
+        position: absolute;
+        z-index: -1;
+        width: $arrow-size;
+        height: $arrow-size;
+        text-align: left;
+
+        &::before {
+          content: "";
+          position: absolute;
+          z-index: -1;
+          width: $arrow-size;
+          height: $arrow-size;
+          transform: translate(0) rotate(45deg);
+          transform-origin: center center;
+        }
+      }
+    }
+
+    @each $position, $position-options in $-arrow-positions {
+      $opposite-position: map.get($position-options, opposite-position);
+      $transform: map.get($position-options, transform);
+
+      #{-arrow-position-selector($position)} {
+        .#{$tooltip-selector} {
+          transform: $transform;
+        }
+
+        .#{$tooltip-arrow-selector} {
+          #{$opposite-position}: -(map.get($-config, arrow-size) / 2);
+        }
+      }
+    }
+
+    &--visible {
+      .#{$tooltip-selector} {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translate(0, 0) !important;
+      }
+    }
+  }
+}

@@ -1148,12 +1148,12 @@ h5 {
 }
 
 p {
-  margin: 0 0 1em 0;
+  margin: 0;
   padding: 0;
   line-height: 1.5;
 }
-p:last-child {
-  margin: 0;
+p:not(:first-of-type) {
+  margin-top: 1em;
 }
 
 strong,
@@ -2864,4 +2864,122 @@ kbd {
 }
 .HEI-progress-bar__indicator--dark {
   background-color: #607d8b;
+}
+
+.birdbrain-tooltip {
+  display: inline;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip {
+  position: relative;
+  padding: 0.75em;
+  border-radius: 0.25em;
+  max-width: 20em;
+  font-size: 1rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 200ms, opacity 200ms;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--primary {
+  background-color: #722b80;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--primary .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #722b80;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--secondary {
+  background-color: #c72b54;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--secondary .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #c72b54;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--success {
+  background-color: #3d9040;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--success .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #3d9040;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--danger {
+  background-color: #e82c32;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--danger .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #e82c32;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--warning {
+  background-color: #ec752c;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--warning .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #ec752c;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--info {
+  background-color: #356ba3;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--info .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #356ba3;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--light {
+  background-color: #cddde4;
+  color: #263238;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--light .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #cddde4;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--dark {
+  background-color: #263238;
+  color: #fbfdfd;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip--dark .birdbrain-tooltip__tooltip__arrow:before {
+  background-color: #263238;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip p {
+  line-height: 1.275;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip .birdbrain-tooltip__tooltip__arrow {
+  position: absolute;
+  z-index: -1;
+  width: 0.5em;
+  height: 0.5em;
+  text-align: left;
+}
+.birdbrain-tooltip .birdbrain-tooltip__tooltip .birdbrain-tooltip__tooltip__arrow::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 0.5em;
+  height: 0.5em;
+  transform: translate(0) rotate(45deg);
+  transform-origin: center center;
+}
+.birdbrain-tooltip [data-popper-placement=top] .birdbrain-tooltip__tooltip {
+  transform: translateY(0.5em);
+}
+.birdbrain-tooltip [data-popper-placement=top] .birdbrain-tooltip__tooltip__arrow {
+  bottom: -0.25em;
+}
+.birdbrain-tooltip [data-popper-placement=bottom] .birdbrain-tooltip__tooltip {
+  transform: translateY(-0.5em);
+}
+.birdbrain-tooltip [data-popper-placement=bottom] .birdbrain-tooltip__tooltip__arrow {
+  top: -0.25em;
+}
+.birdbrain-tooltip [data-popper-placement=left] .birdbrain-tooltip__tooltip {
+  transform: translateX(0.5em);
+}
+.birdbrain-tooltip [data-popper-placement=left] .birdbrain-tooltip__tooltip__arrow {
+  right: -0.25em;
+}
+.birdbrain-tooltip [data-popper-placement=right] .birdbrain-tooltip__tooltip {
+  transform: translateX(-0.5em);
+}
+.birdbrain-tooltip [data-popper-placement=right] .birdbrain-tooltip__tooltip__arrow {
+  left: -0.25em;
+}
+.birdbrain-tooltip--visible .birdbrain-tooltip__tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(0, 0) !important;
 }

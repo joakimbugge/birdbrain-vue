@@ -1,4 +1,4 @@
-import { defineComponent, resolveComponent, openBlock, createBlock, computed, createCommentVNode, renderSlot, ref, onMounted, Fragment, renderList, resolveDynamicComponent, withCtx, createTextVNode, toDisplayString, toRefs, watch } from 'vue';
+import { defineComponent, resolveComponent, openBlock, createBlock, computed, createCommentVNode, renderSlot, ref, onMounted, Fragment, renderList, resolveDynamicComponent, withCtx, createTextVNode, toDisplayString, toRefs, watch, onUpdated, createVNode } from 'vue';
 import 'core-js/modules/es.array.filter.js';
 import 'core-js/modules/es.array.includes.js';
 import 'core-js/modules/es.array.some.js';
@@ -15,6 +15,7 @@ import 'core-js/modules/es.array.every.js';
 import 'core-js/modules/es.array.reduce.js';
 import 'core-js/modules/es.object.keys.js';
 import defineProperty from '@babel/runtime/helpers/esm/defineProperty';
+import { createPopper } from '@popperjs/core';
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -622,4 +623,133 @@ function render$9(_ctx, _cache, $props, $setup, $data, $options) {
 
 script$9.render = render$9;
 
-export { script$1 as Alert, script$2 as Avatar, script$3 as AvatarGroup, script$4 as Badge, script$5 as Button, script$6 as Container, script$7 as Grid, script$8 as GridCol, script$9 as GridRow, script as Icon, icons };
+var Position$1;
+
+(function (Position) {
+  Position["Top"] = "top";
+  Position["Bottom"] = "bottom";
+  Position["Left"] = "left";
+  Position["Right"] = "right";
+})(Position$1 || (Position$1 = {}));
+
+var script$a = defineComponent({
+  props: {
+    type: {
+      type: String,
+      default: Type.Dark
+    },
+    position: {
+      type: String,
+      default: Position$1.Top
+    },
+    content: String
+  },
+  setup: function setup(props, _ref) {
+    var slots = _ref.slots;
+    var targetSlot = ref(null);
+    var targetComponent = ref(null);
+    var targetElement = ref(null);
+    var tooltip = ref(null);
+    var visible = ref(false);
+    var popper;
+    onMounted(function () {
+      if (slots !== null && slots !== void 0 && slots.default) {
+        targetSlot.value = slots.default()[0];
+      }
+    });
+    onUpdated(function () {
+      if (popper) {
+        popper.update();
+      }
+    });
+
+    var show = function show() {
+      visible.value = true;
+    };
+
+    var hide = function hide() {
+      visible.value = false;
+    };
+
+    watch(targetComponent, function () {
+      var _targetComponent$valu;
+
+      if ((_targetComponent$valu = targetComponent.value) !== null && _targetComponent$valu !== void 0 && _targetComponent$valu.$el) {
+        console.log(targetComponent.value);
+        targetElement.value = targetComponent.value.$el;
+      }
+    });
+    watch([targetElement, tooltip], function () {
+      if (targetElement.value && tooltip.value) {
+        popper = createPopper(targetElement.value, tooltip.value, {
+          placement: props.position,
+          modifiers: [{
+            name: "offset",
+            options: {
+              offset: [0, 15]
+            }
+          }]
+        });
+      }
+    });
+    watch(function () {
+      return props.position;
+    }, function () {
+      if (popper) {
+        popper.setOptions({
+          placement: props.position
+        });
+      }
+    });
+    var styling = computed(function () {
+      var _ref2;
+
+      var element = "".concat(Config.ABBR, "-tooltip");
+      return _ref2 = {}, _defineProperty(_ref2, element, true), _defineProperty(_ref2, element + "--".concat(props.type), true), _defineProperty(_ref2, element + "--visible", visible.value), _ref2;
+    });
+    var tooltipStyling = computed(function () {
+      var _ref3;
+
+      var element = "".concat(Config.ABBR, "-tooltip__tooltip");
+      return _ref3 = {}, _defineProperty(_ref3, element, true), _defineProperty(_ref3, element + "--".concat(props.type), true), _ref3;
+    });
+    var arrowStyling = computed(function () {
+      var element = "".concat(Config.ABBR, "-tooltip__tooltip__arrow");
+      return _defineProperty({}, element, true);
+    });
+    return {
+      targetSlot: targetSlot,
+      targetComponent: targetComponent,
+      show: show,
+      hide: hide,
+      styling: styling,
+      tooltip: tooltip,
+      tooltipStyling: tooltipStyling,
+      arrowStyling: arrowStyling
+    };
+  }
+});
+
+var _hoisted_1$1 = {
+  ref: "tooltip"
+};
+function render$a(_ctx, _cache, $props, $setup, $data, $options) {
+  return openBlock(), createBlock("div", {
+    class: _ctx.styling
+  }, [ createCommentVNode("", true), (openBlock(), createBlock(resolveDynamicComponent(_ctx.targetSlot), {
+    ref: "targetComponent",
+    onMouseenter: _ctx.show,
+    onMouseleave: _ctx.hide
+  }, null, 8, ["onMouseenter", "onMouseleave"])), createVNode("div", _hoisted_1$1, [createVNode("div", {
+    class: _ctx.tooltipStyling
+  }, [renderSlot(_ctx.$slots, "content", {}, function () {
+    return [createVNode("p", null, toDisplayString(_ctx.content), 1)];
+  }), createVNode("div", {
+    "data-popper-arrow": "",
+    class: _ctx.arrowStyling
+  }, null, 2)], 2)], 512)], 2);
+}
+
+script$a.render = render$a;
+
+export { script$1 as Alert, script$2 as Avatar, script$3 as AvatarGroup, script$4 as Badge, script$5 as Button, script$6 as Container, script$7 as Grid, script$8 as GridCol, script$9 as GridRow, script as Icon, script$a as Tooltip, icons };

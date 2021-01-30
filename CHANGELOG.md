@@ -1,3 +1,10 @@
+# [1.1.0-alpha.3](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0-alpha.2...v1.1.0-alpha.3) (2021-01-30)
+
+
+### Features
+
+* **tooltip:** introduce tooltip component ([16856d2](https://github.com/joakimbugge/birdbrain-vue/commit/16856d2bfca0a7deee1ac0f349c6411bf3852e09))
+
 # [1.1.0-alpha.2](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0-alpha.1...v1.1.0-alpha.2) (2021-01-29)
 
 
