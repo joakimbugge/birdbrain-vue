@@ -2,13 +2,12 @@
 @use "../../theming/core/layout";
 @use "../../theming/config";
 
-$selector: #{config.get(prefix)}-grid-col;
-
 @function -flex($width) {
   @return 0 0 $width;
 }
 
 @mixin use($theme, $config) {
+  $selector: #{config.get(prefix)}-grid-col;
   $columns: map.get($config, columns);
   $gutter: map.get($config, gutter);
 

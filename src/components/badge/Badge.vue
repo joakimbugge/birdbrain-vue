@@ -1,7 +1,7 @@
 <template>
-  <div class="enk-badge" :class="styling">
+  <div :class="styling">
     <slot></slot>
-    <div class="enk-badge__indicator" v-if="isVisible">
+    <div :class="indicatorStyling" v-if="isVisible">
       <span v-if="!dot">{{ parsedValue }}</span>
     </div>
   </div>
@@ -66,23 +66,33 @@ export default defineComponent({
     });
 
     const styling = computed(() => {
-      const prefix = `${Config.ABBR}-badge`;
-      const type = `${prefix}--${props.type}`;
-      const position = `${prefix}--${props.position}`;
+      const element = `${Config.ABBR}-badge`;
+      const type = `${element}--${props.type}`;
+      const position = `${element}--${props.position}`;
 
       return {
+        [element]: true,
         [type]: true,
         [position]: true,
         [type + "--pulse"]: props.pulse,
-        [prefix + "--dot"]: props.dot,
-        [prefix + "--pulse"]: props.pulse
+        [element + "--dot"]: props.dot,
+        [element + "--pulse"]: props.pulse
+      };
+    });
+
+    const indicatorStyling = computed(() => {
+      const element = `${Config.ABBR}-badge__indicator`;
+
+      return {
+        [element]: true
       };
     });
 
     return {
       isVisible,
       parsedValue,
-      styling
+      styling,
+      indicatorStyling
     };
   }
 });

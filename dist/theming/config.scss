@@ -1,7 +1,7 @@
 @use "sass:map";
 
 $config: (
-  prefix: "enk"
+  prefix: "birdbrain"
 ) !default;
 
 @mixin set($c: $config) {

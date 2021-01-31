@@ -19,6 +19,9 @@ declare const _default: import("vue").DefineComponent<{
     styling: import("vue").ComputedRef<{
         [x: string]: boolean;
     }>;
+    avatarStyling: import("vue").ComputedRef<{
+        [x: string]: boolean;
+    }>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     min: string | number;
     max: string | number;

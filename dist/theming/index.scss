@@ -7,22 +7,15 @@
 @use "core/reset";
 
 @use "./components/Alert";
-//@use "./components/Animation";
 @use "./components/Avatar";
 @use "./components/AvatarGroup";
 @use "./components/Badge";
-//@use "./components/Box";
 @use "./components/Button";
-//@use "./components/ButtonGroup";
-//@use "./components/Card";
 @use "./components/Container";
 @use "./components/Grid";
 @use "./components/Icon";
-//@use "./components/Modal";
-//@use "./components/Pill";
 @use "./components/ProgressBar";
-//@use "./components/Table";
-//@use "./components/Tooltip";
+@use "./components/Tooltip";
 
 @forward "utils";
 
@@ -68,18 +61,12 @@ $-theme: theme.create-theme(
   @include Avatar.use($theme);
   @include AvatarGroup.use($theme);
   @include Badge.use($theme);
-  //@include Box.use($theme);
   @include Button.use($theme);
-  //@include ButtonGroup.use($theme);
-  //@include Card.use($theme);
   @include Container.use($theme);
   @include Grid.use($theme);
   @include Icon.use($theme);
-  //@include Modal.use($theme);
-  //@include Pill.use($theme);
   @include ProgressBar.use($theme);
-  //@include Tooltip.use($theme);
-  //@include Table.use($theme);
+  @include Tooltip.use($theme);
 }
 
 @mixin reset() {

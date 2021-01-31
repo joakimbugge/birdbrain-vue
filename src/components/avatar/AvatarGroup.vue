@@ -2,7 +2,7 @@
   <div :class="styling">
     <slot v-if="false"></slot>
     <component v-for="(avatar, index) in slicedAvatars" :key="avatar" :is="avatar" :style="{ 'z-index': 99 - index }" />
-    <Avatar type="dark" v-if="avatars.length > max" class="enk-avatar-group__rest">+{{ avatars.length - max }}</Avatar>
+    <Avatar type="dark" v-if="avatars.length > max" :class="avatarStyling">+{{ avatars.length - max }}</Avatar>
   </div>
 </template>
 
@@ -38,19 +38,28 @@ export default defineComponent({
     const slicedAvatars = computed(() => slice(avatars.value, 0, Number(props.max)));
 
     const styling = computed(() => {
-      const prefix = `${Config.ABBR}-avatar-group`;
+      const element = `${Config.ABBR}-avatar-group`;
 
       return {
-        [prefix]: true,
-        [prefix + "--grouped"]: isGrouped.value,
-        [prefix + "--narrow"]: props.narrow
+        [element]: true,
+        [element + "--grouped"]: isGrouped.value,
+        [element + "--narrow"]: props.narrow
+      };
+    });
+
+    const avatarStyling = computed(() => {
+      const element = `${Config.ABBR}-avatar-group__rest`;
+
+      return {
+        [element]: true
       };
     });
 
     return {
       avatars,
       slicedAvatars,
-      styling
+      styling,
+      avatarStyling
     };
   }
 });

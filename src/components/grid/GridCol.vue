@@ -1,5 +1,5 @@
 <template>
-  <div class="enk-grid-col" :class="styling">
+  <div :class="styling">
     <slot></slot>
   </div>
 </template>
@@ -58,6 +58,8 @@ export default defineComponent({
     };
 
     const styling = computed(() => {
+      const element = `${Config.ABBR}-grid-col`;
+
       const breakpoints: Breakpoints = {
         [Breakpoint.Xs]: props.xs,
         [Breakpoint.Sm]: props.sm,
@@ -67,8 +69,9 @@ export default defineComponent({
       };
 
       return {
-        [`${Config.ABBR}-grid-col--` + props.size]: Boolean(props.size),
-        [`${Config.ABBR}-grid-col--order--` + props.order]: Boolean(props.order),
+        [element]: true,
+        [element + `--${props.size}`]: Boolean(props.size),
+        [element + `--order--${props.order}`]: Boolean(props.order),
         ...getStylingForBreakpoints(breakpoints)
       };
     });

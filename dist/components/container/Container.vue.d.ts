@@ -3,9 +3,7 @@ declare const _default: import("vue").DefineComponent<{
     center: BooleanConstructor;
 }, {
     styling: import("vue").ComputedRef<{
-        "enk-container": boolean;
-        "enk-container--fluid": boolean;
-        "enk-container--center": boolean;
+        [x: string]: boolean;
     }>;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     fluid: boolean;

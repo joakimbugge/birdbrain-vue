@@ -1,9 +1,9 @@
 @use "../../theming/config";
 @use "./Avatar";
 
-$selector: #{config.get(prefix)}-avatar-group;
-
 @mixin use($theme) {
+  $selector: #{config.get(prefix)}-avatar-group;
+
   .#{$selector} {
     position: relative;
     z-index: auto;

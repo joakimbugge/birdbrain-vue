@@ -2,7 +2,6 @@
 @use "../../theming/config";
 @use "./GridRow";
 
-$selector: #{config.get(prefix)}-grid;
 $config: (
   columns: 12,
   gutter: 1rem,
@@ -13,6 +12,7 @@ $config: (
 }
 
 @mixin use($theme) {
+  $selector: #{config.get(prefix)}-grid;
   $gutter: map.get($config, gutter);
 
   .#{$selector} {
