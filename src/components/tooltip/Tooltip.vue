@@ -80,7 +80,6 @@ export default defineComponent({
 
     watch(targetComponent, () => {
       if (targetComponent.value?.$el) {
-        console.log(targetComponent.value);
         targetElement.value = targetComponent.value.$el;
       }
     });
