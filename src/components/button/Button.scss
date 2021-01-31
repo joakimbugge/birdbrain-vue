@@ -2,7 +2,10 @@
 @use "../../theming/utils/theme";
 @use "../../theming/config";
 
-@mixin -type($name, $palette, $foreground, $background) {
+@mixin -type($name, $palette, $theme, $ripple-selector) {
+  $foreground: map.get($theme, foreground);
+  $background: map.get($theme, background);
+
   &--#{$name} {
     background-color: theme.color($palette);
     color: theme.contrast($palette);
@@ -49,15 +52,19 @@
         color: theme.color($foreground, disabled);
       }
     }
+
+    .#{$ripple-selector} {
+      background: theme.contrast($palette);
+    }
   }
 }
 
 @mixin use($theme) {
-  $foreground: map.get($theme, foreground);
-  $background: map.get($theme, background);
   $selector: #{config.get(prefix)}-button;
+  $ripple-selector: #{$selector}__ripple;
 
   .#{$selector} {
+    position: relative;
     margin: 0;
     padding: 1em 2em;
     background: none;
@@ -67,9 +74,10 @@
     transition: all 0.2s;
     vertical-align: middle;
     border-radius: 50em;
+    overflow: hidden;
 
     @each $name, $palette in map.get($theme, palettes) {
-      @include -type($name, $palette, $foreground, $background);
+      @include -type($name, $palette, $theme, $ripple-selector);
     }
 
     &:active {
@@ -98,5 +106,30 @@
       display: block;
       width: 100%;
     }
+
+    > * {
+      pointer-events: none;
+    }
+
+    .#{$ripple-selector} {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      border-radius: 50%;
+      animation: ripples 0.5s linear;
+    }
+  }
+}
+
+@keyframes ripples {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.35;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
   }
 }

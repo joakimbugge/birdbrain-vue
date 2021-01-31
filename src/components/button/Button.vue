@@ -1,5 +1,5 @@
 <template>
-  <button type="button" :class="styling" :style="{ width, height }" :disabled="disabled" ref="root">
+  <button type="button" :class="styling" :style="{ width, height }" :disabled="disabled" ref="root" @click="ripple">
     <slot v-if="!isLoading"></slot>
     <Icon v-else name="spinner" spin />
   </button>
@@ -45,7 +45,7 @@ export default defineComponent({
     const ICON_COMPONENT_NAME = "Icon";
     const { loading } = toRefs<Props>(props);
 
-    const root = ref<Element | null>(null);
+    const root = ref<HTMLElement | null>(null);
     const width = ref<string | null>(null);
     const height = ref<string | null>(null);
     const isIcon = ref(false);
@@ -82,6 +82,24 @@ export default defineComponent({
 
     watch(loading, onLoadingChange);
 
+    const ripple = (event: MouseEvent & { target: HTMLElement }): void => {
+      if (!root.value || !event.target) {
+        return;
+      }
+
+      const circle = document.createElement("span");
+
+      circle.classList.add(`${Config.ABBR}-button__ripple`);
+      circle.style.left = `${event.clientX + window.scrollX - event.target.offsetLeft}px`;
+      circle.style.top = `${event.clientY + window.scrollY - event.target.offsetTop}px`;
+
+      circle.addEventListener("animationend", () => {
+        circle.remove();
+      });
+
+      root.value.appendChild(circle);
+    };
+
     const styling = computed(() => {
       const element = `${Config.ABBR}-button`;
       const typeModifier = `--${props.type}`;
@@ -107,7 +125,8 @@ export default defineComponent({
       isIconLast,
       isIconOnly,
       isLoading,
-      styling
+      styling,
+      ripple
     };
   }
 });
