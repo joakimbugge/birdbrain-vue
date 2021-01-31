@@ -11,7 +11,7 @@ declare const _default: import("vue").DefineComponent<{
     disabled: BooleanConstructor;
     loading: BooleanConstructor;
 }, {
-    root: import("vue").Ref<Element | null>;
+    root: import("vue").Ref<HTMLElement | null>;
     width: import("vue").Ref<string | null>;
     height: import("vue").Ref<string | null>;
     isIcon: import("vue").Ref<boolean>;
@@ -22,6 +22,9 @@ declare const _default: import("vue").DefineComponent<{
     styling: import("vue").ComputedRef<{
         [x: string]: boolean;
     }>;
+    ripple: (event: MouseEvent & {
+        target: HTMLElement;
+    }) => void;
 }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<{
     type: Type;
     block: boolean;

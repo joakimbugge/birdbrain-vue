@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0...v1.2.0) (2021-01-31)
+
+
+### Features
+
+* **button:** ripple effect on click ([8804b4d](https://github.com/joakimbugge/birdbrain-vue/commit/8804b4d7280587ecd139e95aaca1891d7808955c))
+
 # [1.1.0](https://github.com/joakimbugge/birdbrain-vue/compare/v1.0.0...v1.1.0) (2021-01-31)
 
 

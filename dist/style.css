@@ -1,6 +1,18 @@
 @charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+@keyframes ripples {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0.35;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
 html,
 body,
 div,
@@ -1670,6 +1682,7 @@ kbd {
 }
 
 .birdbrain-button {
+  position: relative;
   margin: 0;
   padding: 1em 2em;
   background: none;
@@ -1679,6 +1692,7 @@ kbd {
   transition: all 0.2s;
   vertical-align: middle;
   border-radius: 50em;
+  overflow: hidden;
 }
 .birdbrain-button--primary {
   background-color: #9f56ab;
@@ -1719,6 +1733,9 @@ kbd {
   background-color: transparent;
   color: #8297a1;
 }
+.birdbrain-button--primary .birdbrain-button__ripple {
+  background: #fbfdfd;
+}
 .birdbrain-button--secondary {
   background-color: #dd5684;
   color: #fbfdfd;
@@ -1757,6 +1774,9 @@ kbd {
 .birdbrain-button--secondary--text[disabled] {
   background-color: transparent;
   color: #8297a1;
+}
+.birdbrain-button--secondary .birdbrain-button__ripple {
+  background: #fbfdfd;
 }
 .birdbrain-button--success {
   background-color: #6cb76f;
@@ -1797,6 +1817,9 @@ kbd {
   background-color: transparent;
   color: #8297a1;
 }
+.birdbrain-button--success .birdbrain-button__ripple {
+  background: #fbfdfd;
+}
 .birdbrain-button--danger {
   background-color: #f2575f;
   color: #fbfdfd;
@@ -1835,6 +1858,9 @@ kbd {
 .birdbrain-button--danger--text[disabled] {
   background-color: transparent;
   color: #8297a1;
+}
+.birdbrain-button--danger .birdbrain-button__ripple {
+  background: #fbfdfd;
 }
 .birdbrain-button--warning {
   background-color: #f4a257;
@@ -1875,6 +1901,9 @@ kbd {
   background-color: transparent;
   color: #8297a1;
 }
+.birdbrain-button--warning .birdbrain-button__ripple {
+  background: #fbfdfd;
+}
 .birdbrain-button--info {
   background-color: #6399c5;
   color: #fbfdfd;
@@ -1913,6 +1942,9 @@ kbd {
 .birdbrain-button--info--text[disabled] {
   background-color: transparent;
   color: #8297a1;
+}
+.birdbrain-button--info .birdbrain-button__ripple {
+  background: #fbfdfd;
 }
 .birdbrain-button--light {
   background-color: #e1ebef;
@@ -1953,6 +1985,9 @@ kbd {
   background-color: transparent;
   color: #8297a1;
 }
+.birdbrain-button--light .birdbrain-button__ripple {
+  background: #263238;
+}
 .birdbrain-button--dark {
   background-color: #607d8b;
   color: #fbfdfd;
@@ -1992,6 +2027,9 @@ kbd {
   background-color: transparent;
   color: #8297a1;
 }
+.birdbrain-button--dark .birdbrain-button__ripple {
+  background: #fbfdfd;
+}
 .birdbrain-button:active {
   transform: translateY(2px);
 }
@@ -2009,6 +2047,16 @@ kbd {
 .birdbrain-button--block {
   display: block;
   width: 100%;
+}
+.birdbrain-button > * {
+  pointer-events: none;
+}
+.birdbrain-button .birdbrain-button__ripple {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  border-radius: 50%;
+  animation: ripples 0.5s linear;
 }
 
 .birdbrain-container--fluid {

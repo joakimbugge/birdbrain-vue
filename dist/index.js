@@ -421,6 +421,22 @@ var script$5 = defineComponent({
       }
     });
     watch(loading, onLoadingChange);
+
+    var ripple = function ripple(event) {
+      if (!root.value || !event.target) {
+        return;
+      }
+
+      var circle = document.createElement("span");
+      circle.classList.add("".concat(Config.ABBR, "-button__ripple"));
+      circle.style.left = "".concat(event.clientX + window.scrollX - event.target.offsetLeft, "px");
+      circle.style.top = "".concat(event.clientY + window.scrollY - event.target.offsetTop, "px");
+      circle.addEventListener("animationend", function () {
+        circle.remove();
+      });
+      root.value.appendChild(circle);
+    };
+
     var styling = computed(function () {
       var _ref2;
 
@@ -437,7 +453,8 @@ var script$5 = defineComponent({
       isIconLast: isIconLast,
       isIconOnly: isIconOnly,
       isLoading: isLoading,
-      styling: styling
+      styling: styling,
+      ripple: ripple
     };
   }
 });
@@ -453,7 +470,10 @@ function render$5(_ctx, _cache, $props, $setup, $data, $options) {
       height: _ctx.height
     },
     disabled: _ctx.disabled,
-    ref: "root"
+    ref: "root",
+    onClick: _cache[1] || (_cache[1] = function () {
+      return _ctx.ripple && _ctx.ripple.apply(_ctx, arguments);
+    })
   }, [!_ctx.isLoading ? renderSlot(_ctx.$slots, "default", {
     key: 0
   }) : (openBlock(), createBlock(_component_Icon, {
@@ -675,7 +695,6 @@ var script$a = defineComponent({
       var _targetComponent$valu;
 
       if ((_targetComponent$valu = targetComponent.value) !== null && _targetComponent$valu !== void 0 && _targetComponent$valu.$el) {
-        console.log(targetComponent.value);
         targetElement.value = targetComponent.value.$el;
       }
     });
