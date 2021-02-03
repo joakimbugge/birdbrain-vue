@@ -74,6 +74,10 @@ $-config: (
         line-height: typography.get(line-height) * 0.85;
       }
 
+      img {
+        max-width: 100%;
+      }
+
       .#{$tooltip-arrow-selector} {
         position: absolute;
         z-index: -1;
