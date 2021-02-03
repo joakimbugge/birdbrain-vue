@@ -82,16 +82,19 @@ export default defineComponent({
 
     watch(loading, onLoadingChange);
 
-    const ripple = (event: MouseEvent & { target: HTMLElement }): void => {
-      if (!root.value || !event.target) {
+    const ripple = (event: ElementMouseEvent): void => {
+      if (!root.value || !event.currentTarget) {
         return;
       }
 
+      const rect = event.currentTarget.getBoundingClientRect();
+      const left = event.clientX - rect.left;
+      const top = event.clientY - rect.top;
       const circle = document.createElement("span");
 
       circle.classList.add(`${Config.ABBR}-button__ripple`);
-      circle.style.left = `${event.clientX + window.scrollX - event.target.offsetLeft}px`;
-      circle.style.top = `${event.clientY + window.scrollY - event.target.offsetTop}px`;
+      circle.style.left = `${left}px`;
+      circle.style.top = `${top}px`;
 
       circle.addEventListener("animationend", () => {
         circle.remove();
