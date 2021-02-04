@@ -1,136 +1,429 @@
 <template>
-  <div class="spacing" style="text-align: center">
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+  <div class="spacing">
+    <h2>Progress bars</h2>
 
-    <Tooltip
-      content="Tooltip with a lot of content and some more should break into multiple lines"
-      :position="tooltipPosition"
-    >
-      <Button @click="toggleTooltipPosition">Tooltip</Button>
-    </Tooltip>
-  </div>
+    <Grid>
+      <GridRow size="6">
+        <GridCol>
+          <ProgressBar
+            v-for="type in types"
+            :key="type"
+            :type="type"
+            :progress="getRandomProgress()"
+            class="bb-margin-bottom-4"
+          />
+        </GridCol>
 
-  <div class="spacing spacing--block">
-    <ProgressBar :progress="progress" @click="randomProgress" />
-    <ProgressBar :progress="progress" type="secondary" fixed />
-  </div>
-
-  <div class="spacing spacing--block">
-    <h2>Avatar groups</h2>
-
-    <AvatarGroup min="4">
-      <Avatar><img src="https://picsum.photos/seed/12/200"/></Avatar>
-      <Avatar><img src="https://picsum.photos/seed/22/200"/></Avatar>
-      <Avatar><img src="https://picsum.photos/seed/32/200"/></Avatar>
-    </AvatarGroup>
-
-    Hello
-
-    <div>
-      <AvatarGroup>
-        <Avatar type="dark">Y</Avatar>
-        <Avatar type="secondary">X</Avatar>
-        <Avatar>W</Avatar>
-      </AvatarGroup>
-
-      <AvatarGroup>
-        <Avatar>Y</Avatar>
-        <Avatar><img src="https://picsum.photos/seed/2/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/3/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/4/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/5/200"/></Avatar>
-      </AvatarGroup>
-
-      <AvatarGroup max="99">
-        <Avatar><img src="https://picsum.photos/seed/1/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/2/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/3/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/4/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/5/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/11/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/21/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/31/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/41/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/51/200"/></Avatar>
-      </AvatarGroup>
-
-      <AvatarGroup max="99" narrow>
-        <Avatar><img src="https://picsum.photos/seed/13/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/23/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/33/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/43/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/53/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/113/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/213/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/313/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/413/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/513/200"/></Avatar>
-      </AvatarGroup>
-
-      <AvatarGroup narrow>
-        <Avatar><img src="https://picsum.photos/seed/15/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/25/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/35/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/45/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/55/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/115/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/215/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/315/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/415/200"/></Avatar>
-        <Avatar><img src="https://picsum.photos/seed/515/200"/></Avatar>
-      </AvatarGroup>
-    </div>
+        <GridCol>
+          <ProgressBar
+            v-for="type in types"
+            :key="type"
+            :type="type"
+            :progress="getRandomProgress()"
+            outline
+            class="bb-margin-bottom-4"
+          />
+        </GridCol>
+      </GridRow>
+    </Grid>
   </div>
 
   <div class="spacing">
     <h2>Avatars</h2>
 
-    <Tooltip content="Test">
-      <template #content>Other content</template>
-      <Avatar>JB</Avatar>
-    </Tooltip>
-    <Avatar><img src="https://picsum.photos/200"/></Avatar>
+    <Grid>
+      <GridRow size="6">
+        <GridCol>
+          <Avatar v-for="type in types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+            B
+          </Avatar>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="12">
+        <GridCol>
+          <div style="font-size: 1.5em;">
+            <Avatar v-for="type in types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+              B
+            </Avatar>
+          </div>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="6">
+        <GridCol>
+          <Avatar v-for="(type, index) in types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+            <img :src="`https://picsum.photos/seed/${index + 1}/200`" />
+          </Avatar>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="12">
+        <GridCol>
+          <div style="font-size: 1.5em;">
+            <Avatar
+              v-for="(type, index) in types"
+              :key="type"
+              :type="type"
+              class="bb-margin-bottom-4 bb-margin-right-4"
+            >
+              <img :src="`https://picsum.photos/seed/${index + 1}/200`" />
+            </Avatar>
+          </div>
+        </GridCol>
+      </GridRow>
+    </Grid>
+  </div>
+
+  <div class="spacing">
+    <h2>Avatar groups</h2>
+
+    <Grid>
+      <GridRow size="3" class="bb-margin-bottom-4">
+        <GridCol>
+          <AvatarGroup max="99">
+            <Avatar v-for="avatar in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']" :key="avatar">{{ avatar }}</Avatar>
+          </AvatarGroup>
+        </GridCol>
+
+        <GridCol>
+          <AvatarGroup max="5">
+            <Avatar v-for="avatar in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']" :key="avatar">{{ avatar }}</Avatar>
+          </AvatarGroup>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="3" class="bb-margin-bottom-4">
+        <GridCol>
+          <AvatarGroup max="99">
+            <Avatar
+              v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']"
+              :key="avatar"
+              :type="types[index]"
+            >
+              {{ avatar }}
+            </Avatar>
+          </AvatarGroup>
+        </GridCol>
+
+        <GridCol size="3" class="bb-margin-bottom-4">
+          <AvatarGroup max="5">
+            <Avatar
+              v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']"
+              :key="avatar"
+              :type="types[index]"
+            >
+              {{ avatar }}
+            </Avatar>
+          </AvatarGroup>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="3" class="bb-margin-bottom-8">
+        <GridCol>
+          <AvatarGroup max="99">
+            <Avatar v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']" :key="avatar">
+              <img :src="`https://picsum.photos/seed/${index + 1}/200`" />
+            </Avatar>
+          </AvatarGroup>
+        </GridCol>
+
+        <GridCol>
+          <AvatarGroup max="5">
+            <Avatar v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']" :key="avatar">
+              <img :src="`https://picsum.photos/seed/${index + 1}/200`" />
+            </Avatar>
+          </AvatarGroup>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="4" class="bb-margin-bottom-8">
+        <GridCol>
+          <div style="font-size: 1.5em">
+            <AvatarGroup max="99">
+              <Avatar
+                v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']"
+                :key="avatar"
+                :type="types[index]"
+              >
+                {{ avatar }}
+              </Avatar>
+            </AvatarGroup>
+          </div>
+        </GridCol>
+
+        <GridCol>
+          <div style="font-size: 1.5em">
+            <AvatarGroup max="5">
+              <Avatar
+                v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']"
+                :key="avatar"
+                :type="types[index]"
+              >
+                {{ avatar }}
+              </Avatar>
+            </AvatarGroup>
+          </div>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="4">
+        <GridCol>
+          <div style="font-size: 1.5em">
+            <AvatarGroup max="99">
+              <Avatar
+                v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']"
+                :key="avatar"
+                :type="types[index]"
+              >
+                <img :src="`https://picsum.photos/seed/${index + 1}/200`" />
+              </Avatar>
+            </AvatarGroup>
+          </div>
+        </GridCol>
+
+        <GridCol>
+          <div style="font-size: 1.5em">
+            <AvatarGroup max="5">
+              <Avatar
+                v-for="(avatar, index) in ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']"
+                :key="avatar"
+                :type="types[index]"
+              >
+                <img :src="`https://picsum.photos/seed/${index + 1}/200`" />
+              </Avatar>
+            </AvatarGroup>
+          </div>
+        </GridCol>
+      </GridRow>
+    </Grid>
   </div>
 
   <div class="spacing">
     <h2>Buttons</h2>
 
-    <div>
-      <Button>Text only</Button>
-      <Button @click="toggleLoading" :loading="loading">Click to load</Button>
-      <Button><Icon name="ambulance" /> Text</Button>
-      <Button>Text <Icon name="ambulance"/></Button>
-      <Button><Icon name="ambulance"/></Button>
-    </div>
+    <Grid>
+      <GridRow size="6" class="bb-margin-bottom-8">
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+            Continue
+          </Button>
 
-    <div>
-      <Button type="secondary">Secondary button</Button>
-      <Button type="info">Info button</Button>
-    </div>
+          <Button disabled>Continue</Button>
+        </GridCol>
+
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" outline class="bb-margin-bottom-4 bb-margin-right-4">
+            Continue
+          </Button>
+
+          <Button disabled outline>Continue</Button>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="6" class="bb-margin-bottom-8">
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="key"></Icon>
+            Login
+          </Button>
+
+          <Button disabled class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="key"></Icon>
+            Login
+          </Button>
+        </GridCol>
+
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" outline class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="key"></Icon>
+            Login
+          </Button>
+
+          <Button disabled outline class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="key"></Icon>
+            Login
+          </Button>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="6" class="bb-margin-bottom-8">
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+            Save
+            <Icon name="save"></Icon>
+          </Button>
+
+          <Button disabled class="bb-margin-bottom-4 bb-margin-right-4">
+            Save
+            <Icon name="save"></Icon>
+          </Button>
+        </GridCol>
+
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" outline class="bb-margin-bottom-4 bb-margin-right-4">
+            Save
+            <Icon name="save"></Icon>
+          </Button>
+
+          <Button disabled outline class="bb-margin-bottom-4 bb-margin-right-4">
+            Save
+            <Icon name="save"></Icon>
+          </Button>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="6" class="bb-margin-bottom-8">
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="comment"></Icon>
+          </Button>
+
+          <Button disabled class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="comment"></Icon>
+          </Button>
+        </GridCol>
+
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" outline class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="comment"></Icon>
+          </Button>
+
+          <Button disabled outline class="bb-margin-bottom-4 bb-margin-right-4">
+            <Icon name="comment"></Icon>
+          </Button>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="6" class="bb-margin-bottom-8">
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" loading class="bb-margin-bottom-4 bb-margin-right-4">
+            Button
+          </Button>
+
+          <Button disabled loading class="bb-margin-bottom-4 bb-margin-right-4">
+            Button
+          </Button>
+        </GridCol>
+
+        <GridCol>
+          <Button
+            v-for="type of types"
+            :key="type"
+            :type="type"
+            loading
+            outline
+            class="bb-margin-bottom-4 bb-margin-right-4"
+          >
+            Button
+          </Button>
+
+          <Button disabled loading outline class="bb-margin-bottom-4 bb-margin-right-4">
+            Button
+          </Button>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="6">
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" block class="bb-margin-bottom-4">
+            <Icon name="comment"></Icon> Comment
+          </Button>
+
+          <Button disabled block class="bb-margin-bottom-4"> <Icon name="comment"></Icon> Comment </Button>
+        </GridCol>
+
+        <GridCol>
+          <Button v-for="type of types" :key="type" :type="type" outline block class="bb-margin-bottom-4">
+            <Icon name="comment"></Icon> Comment
+          </Button>
+
+          <Button disabled outline block class="bb-margin-bottom-4"> <Icon name="comment"></Icon> Comment </Button>
+        </GridCol>
+      </GridRow>
+    </Grid>
   </div>
 
-  <div class="spacing spacing--block">
+  <div class="spacing">
     <h2>Alerts</h2>
 
-    <Alert>This is a default alert</Alert>
-    <Alert icon>This is a default alert</Alert>
-    <Alert :type="type" @click="toggleType" icon>This is a primary alert</Alert>
-    <Alert type="info" icon>This is an info alert</Alert>
-    <Alert type="danger" icon>This is a danger alert</Alert>
-    <Alert icon="ambulance">This is a default alert with a custom icon</Alert>
-    <Alert outline>This is an outlined alert</Alert>
-    <Alert outline icon>This is an outlined alert with icon</Alert>
-    <Alert inline>This is an inlined alert</Alert>
-    <Alert text>This is a text alert</Alert>
+    <Grid>
+      <GridRow xs="12" md="4" class="bb-margin-bottom-8">
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" class="bb-margin-bottom-4">
+            This is an alert
+          </Alert>
+        </GridCol>
+
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" outline class="bb-margin-bottom-4">
+            This is an outline alert
+          </Alert>
+        </GridCol>
+
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" text class="bb-margin-bottom-4">
+            This is a text alert
+          </Alert>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="4" class="bb-margin-bottom-8">
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" icon class="bb-margin-bottom-4">
+            This is an alert with default icon
+          </Alert>
+        </GridCol>
+
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" icon outline class="bb-margin-bottom-4">
+            This is an outline alert with default icon
+          </Alert>
+        </GridCol>
+
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" icon text class="bb-margin-bottom-4">
+            This is a text alert with default icon
+          </Alert>
+        </GridCol>
+      </GridRow>
+
+      <GridRow size="4" class="bb-margin-bottom-8">
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" icon="comment" class="bb-margin-bottom-4">
+            This is an alert with custom icon
+          </Alert>
+        </GridCol>
+
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" outline icon="comment" class="bb-margin-bottom-4">
+            This is an outline alert with custom icon
+          </Alert>
+        </GridCol>
+
+        <GridCol>
+          <Alert v-for="type of types" :key="type" :type="type" text icon="comment" class="bb-margin-bottom-4">
+            This is a text alert with custom icon
+          </Alert>
+        </GridCol>
+      </GridRow>
+
+      <GridRow>
+        <GridCol size="12">
+          <template v-for="type of types" :key="type">
+            <Alert :type="type" inline icon class="bb-margin-bottom-4 bb-margin-right-4">
+              This is an inline {{ type }} alert with default icon
+            </Alert>
+
+            <Alert :type="type" inline outline icon class="bb-margin-bottom-4">
+              This is an inline outline {{ type }} alert with default icon
+            </Alert>
+
+            <br />
+          </template>
+        </GridCol>
+      </GridRow>
+    </Grid>
   </div>
 
   <div class="spacing">
@@ -237,11 +530,14 @@
   </div>
 
   <div class="spacing">
+    <h2>Icons</h2>
+
     <div class="icons">
       <div class="icons__icon" v-for="icon in icons" :key="icon">
         <div class="icons__icon__icon">
           <Icon :name="icon.iconName" />
         </div>
+
         <span>{{ icon.iconName }}</span>
       </div>
     </div>
@@ -262,12 +558,11 @@ import GridCol from "../src/components/grid/GridCol.vue";
 import GridRow from "../src/components/grid/GridRow.vue";
 import Icon, { icons } from "../src/components/icon/Icon.vue";
 import ProgressBar from "../src/components/progress/ProgressBar.vue";
-import Tooltip from "../src/components/tooltip/Tooltip.vue";
+import { Type } from "../src/core/enums/Type";
 
 export default defineComponent({
   name: "App",
   components: {
-    Tooltip,
     ProgressBar,
     AvatarGroup,
     Avatar,
@@ -285,6 +580,7 @@ export default defineComponent({
     const type = ref("primary");
     const progress = ref(40);
     const tooltipPosition = ref("left");
+    const types = Object.values(Type);
 
     const toggleLoading = () => {
       loading.value = !loading.value;
@@ -302,15 +598,19 @@ export default defineComponent({
       tooltipPosition.value = tooltipPosition.value === "left" ? "right" : "left";
     };
 
+    const getRandomProgress = () => random(10, 90);
+
     return {
       toggleLoading,
       toggleType,
       toggleTooltipPosition,
       randomProgress,
+      getRandomProgress,
       progress,
       loading,
       type,
       tooltipPosition,
+      types,
       icons
     };
   }
@@ -320,7 +620,11 @@ export default defineComponent({
 <style lang="scss">
 @use "../src/theming";
 
-@include theming.all();
+@include theming.all(
+  $config: (
+    prefix: "bb"
+  )
+);
 
 body {
   margin: 4em;
@@ -328,19 +632,6 @@ body {
 
 .spacing {
   margin: 4em 0;
-
-  &--block {
-    > div {
-      margin-top: 1em;
-      margin-bottom: 1em;
-    }
-  }
-
-  &--horizontal {
-    > div {
-      margin-right: 1em;
-    }
-  }
 }
 
 .grid {
@@ -366,23 +657,27 @@ body {
 
   .icons__icon {
     display: flex;
-    flex-direction: column;
     align-items: center;
     width: 20%;
     font-size: 1.5em;
-    padding: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
 
     .icons__icon__icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 1em;
       height: 1em;
-      background: #eee;
-      margin-bottom: 0.5em;
+      padding: 1.5em;
+      border-radius: 100%;
+      background: #f1f1f1;
     }
 
     span {
       display: block;
       font-size: 0.5em;
-      text-align: center;
+      margin-left: 1em;
     }
   }
 }
