@@ -41,7 +41,7 @@ function _classCallCheck(instance, Constructor) {
 var Config = function Config() {
   _classCallCheck(this, Config);
 };
-Config.ABBR = "birdbrain";
+Config.ABBR = "bb";
 
 var Type;
 
@@ -220,6 +220,10 @@ var script$3 = defineComponent({
     onMounted(function () {
       if (slots !== null && slots !== void 0 && slots.default) {
         avatars.value = slots.default();
+
+        if (Array.isArray(avatars.value[0].children)) {
+          avatars.value = avatars.value[0].children;
+        }
       }
     });
     var isGrouped = computed(function () {
@@ -423,14 +427,17 @@ var script$5 = defineComponent({
     watch(loading, onLoadingChange);
 
     var ripple = function ripple(event) {
-      if (!root.value || !event.target) {
+      if (!root.value || !event.currentTarget) {
         return;
       }
 
+      var rect = event.currentTarget.getBoundingClientRect();
+      var left = event.clientX - rect.left;
+      var top = event.clientY - rect.top;
       var circle = document.createElement("span");
       circle.classList.add("".concat(Config.ABBR, "-button__ripple"));
-      circle.style.left = "".concat(event.clientX + window.scrollX - event.target.offsetLeft, "px");
-      circle.style.top = "".concat(event.clientY + window.scrollY - event.target.offsetTop, "px");
+      circle.style.left = "".concat(left, "px");
+      circle.style.top = "".concat(top, "px");
       circle.addEventListener("animationend", function () {
         circle.remove();
       });
@@ -578,12 +585,12 @@ var Breakpoint;
 var script$8 = defineComponent({
   props: {
     size: [String, Number],
-    order: [String, Number],
     xs: [String, Number, Object],
     sm: [String, Number, Object],
     md: [String, Number, Object],
     lg: [String, Number, Object],
-    xl: [String, Number, Object]
+    xl: [String, Number, Object],
+    order: [String, Number]
   },
   setup: function setup(props) {
     var getStylingForBreakpoints = function getStylingForBreakpoints(breakpoints) {
@@ -624,10 +631,28 @@ function render$8(_ctx, _cache, $props, $setup, $data, $options) {
 script$8.render = render$8;
 
 var script$9 = defineComponent({
-  setup: function setup() {
+  props: {
+    size: [String, Number],
+    xs: [String, Number],
+    sm: [String, Number],
+    md: [String, Number],
+    lg: [String, Number],
+    xl: [String, Number]
+  },
+  setup: function setup(props) {
+    var getStylingForBreakpoints = function getStylingForBreakpoints(breakpoints) {
+      return Object.keys(breakpoints).reduce(function (accumulator, breakpoint) {
+        var value = breakpoints[breakpoint];
+        return _objectSpread2(_objectSpread2({}, accumulator), {}, _defineProperty({}, "".concat(Config.ABBR, "-grid-row--").concat(breakpoint, "--").concat(value), Boolean(value)));
+      }, {});
+    };
+
     var styling = computed(function () {
+      var _breakpoints, _objectSpread3;
+
       var element = "".concat(Config.ABBR, "-grid-row");
-      return _defineProperty({}, element, true);
+      var breakpoints = (_breakpoints = {}, _defineProperty(_breakpoints, Breakpoint.Xs, props.xs), _defineProperty(_breakpoints, Breakpoint.Sm, props.sm), _defineProperty(_breakpoints, Breakpoint.Md, props.md), _defineProperty(_breakpoints, Breakpoint.Lg, props.lg), _defineProperty(_breakpoints, Breakpoint.Xl, props.xl), _breakpoints);
+      return _objectSpread2((_objectSpread3 = {}, _defineProperty(_objectSpread3, element, true), _defineProperty(_objectSpread3, element + "--".concat(props.size), Boolean(props.size)), _objectSpread3), getStylingForBreakpoints(breakpoints));
     });
     return {
       styling: styling

@@ -2,12 +2,14 @@
 @use "../core/layout";
 @use "../config";
 
+$selector: "";
+
 @function -flex($width) {
   @return 0 0 $width;
 }
 
 @mixin use($theme, $config) {
-  $selector: #{config.get(prefix)}-grid-col;
+  $selector: #{config.get(prefix)}-grid-col !global;
   $columns: map.get($config, columns);
   $gutter: map.get($config, gutter);
 
@@ -31,7 +33,7 @@
           }
 
           &--#{$size}--#{$num} {
-            flex: -flex($width-adjusted);
+            flex: -flex($width-adjusted) !important;
           }
 
           &--#{$size}--order--#{$num} {

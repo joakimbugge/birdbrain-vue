@@ -5,6 +5,11 @@
 @mixin -type($name, $palette) {
   &--#{$name} {
     background-color: theme.color($palette, light);
+
+    &--outline {
+      background-color: transparent;
+      border-color: theme.color($palette, lighter);
+    }
   }
 }
 
@@ -20,7 +25,7 @@
   .#{$selector}-progress-bar {
     display: block;
     padding: 0.2em;
-    border-radius: 0.25em;
+    border-radius: 50em;
     border: 1px solid transparent;
 
     @each $name, $palette in map.get($theme, palettes) {
@@ -40,7 +45,7 @@
 
     &__indicator {
       height: 1em;
-      border-radius: 0.25em;
+      border-radius: 50em;
       transition: all 0.2s linear;
 
       &--fixed {

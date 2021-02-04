@@ -1,3 +1,20 @@
+# [1.3.0](https://github.com/joakimbugge/birdbrain-vue/compare/v1.2.0...v1.3.0) (2021-02-04)
+
+
+### Bug Fixes
+
+* **Alert:** add horizontal padding, remove vertical padding ([f7a59e8](https://github.com/joakimbugge/birdbrain-vue/commit/f7a59e8d8fd8967a74182ee485e0d4cb8c350751))
+* **AvatarGroup:** support avatars rendered with v-for ([5dbac58](https://github.com/joakimbugge/birdbrain-vue/commit/5dbac581cfb2615018b589febc2bff4557eb4971))
+* **button:** improve ripple positioning ([831aa89](https://github.com/joakimbugge/birdbrain-vue/commit/831aa89664aed3730feb85f79033b0425b3ba5ca))
+* **tooltip:** limit image width to 100% ([8e01c17](https://github.com/joakimbugge/birdbrain-vue/commit/8e01c172843aa537771a11bf561c276aa32dce9e))
+
+
+### Features
+
+* **core:** change prefix to 'bb' ([20cdf4a](https://github.com/joakimbugge/birdbrain-vue/commit/20cdf4a907e38dec380bc3ea2fb5a1fc87c4aff3))
+* **GridRow:** add optional size that affects all columns ([d51ef0b](https://github.com/joakimbugge/birdbrain-vue/commit/d51ef0b91657e0d511b65e4bd07fd4e9835d8b1b))
+* **ProgressBar:** add outline option ([0f3d608](https://github.com/joakimbugge/birdbrain-vue/commit/0f3d6089c34efe0eb98bef4d1dae83e831ccb8ed))
+
 # [1.2.0](https://github.com/joakimbugge/birdbrain-vue/compare/v1.1.0...v1.2.0) (2021-01-31)
 
 
