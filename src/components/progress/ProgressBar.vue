@@ -19,7 +19,8 @@ export default defineComponent({
       type: [String, Number] as PropType<string | number>,
       default: 0
     },
-    fixed: Boolean
+    fixed: Boolean,
+    outline: Boolean
   },
   setup(props) {
     const composeStyling = (element: string) => () => {
@@ -27,8 +28,9 @@ export default defineComponent({
 
       return {
         [element]: true,
+        [element + "--fixed"]: props.fixed,
         [type]: true,
-        [element + "--fixed"]: props.fixed
+        [type + "--outline"]: props.outline
       };
     };
 
