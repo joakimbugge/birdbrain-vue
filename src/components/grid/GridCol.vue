@@ -28,12 +28,12 @@ interface Size {
 export default defineComponent({
   props: {
     size: [String, Number],
-    order: [String, Number],
     xs: [String, Number, Object] as PropType<SizeProp>,
     sm: [String, Number, Object] as PropType<SizeProp>,
     md: [String, Number, Object] as PropType<SizeProp>,
     lg: [String, Number, Object] as PropType<SizeProp>,
-    xl: [String, Number, Object] as PropType<SizeProp>
+    xl: [String, Number, Object] as PropType<SizeProp>,
+    order: [String, Number]
   },
   setup(props) {
     const getStylingForBreakpoints = (breakpoints: Breakpoints): Styles => {

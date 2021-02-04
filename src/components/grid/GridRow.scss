@@ -1,10 +1,15 @@
 @use "sass:map";
 @use "../../theming/config";
+@use "../../theming/core/layout";
 @use "./GridCol";
 
+@function -flex($width) {
+  @return 0 0 $width;
+}
 
 @mixin use($theme, $config) {
   $selector: #{config.get(prefix)}-grid-row;
+  $columns: map.get($config, columns);
   $gutter: map.get($config, gutter);
   $reset-gutter: (-$gutter / 2);
 
@@ -25,5 +30,26 @@
     }
 
     @include GridCol.use($theme, $config);
+
+    @each $size, $_ in layout.get-breakpoint() {
+      @include layout.above($size) {
+        @for $num from 1 through $columns {
+          $width: (100% / $columns) * $num;
+          $width-adjusted: calc(#{$width} - #{$gutter});
+
+          &--#{$num} {
+            .#{GridCol.$selector} {
+              flex: -flex($width-adjusted);
+            }
+          }
+
+          &--#{$size}--#{$num} {
+            .#{GridCol.$selector} {
+              flex: -flex($width-adjusted);
+            }
+          }
+        }
+      }
+    }
   }
 }
