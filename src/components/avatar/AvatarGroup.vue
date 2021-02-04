@@ -31,6 +31,10 @@ export default defineComponent({
     onMounted(() => {
       if (slots?.default) {
         avatars.value = slots.default();
+
+        if (Array.isArray(avatars.value[0].children)) {
+          avatars.value = avatars.value[0].children as VNode[];
+        }
       }
     });
 
