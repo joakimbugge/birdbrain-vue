@@ -1,3 +1,7 @@
 @use "theming";
 
-@include theming.all();
+@include theming.all(
+  $config: (
+    prefix: "bb"
+  )
+);

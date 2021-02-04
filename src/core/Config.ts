@@ -1,3 +1,3 @@
 export abstract class Config {
-  public static ABBR = "birdbrain";
+  public static ABBR = "bb";
 }
